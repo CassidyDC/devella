@@ -28,6 +28,7 @@ This document summarizes the user visible changes introduced by the v3 refactor.
 
 ## Installation workflow
 
+- Before showing setup questions, the CLI checks Docker and asks the user to start the provider and retry if it is unavailable.
 - The final `run` confirmation saves the collected settings before preflight checks. The config omits the administrator password, so a rerun can reuse other answers after a missing Docker or other preflight requirement is fixed.
 - Existing configurations can be continued or replaced. Continuing validates known values and asks again for missing or invalid settings; the password is always requested again.
 - Preflight checks project paths, existing files, Composer and DDEV configuration, required commands, Docker availability, and project registration before generated setup files or external setup commands are changed.

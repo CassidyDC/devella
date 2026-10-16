@@ -24,7 +24,7 @@ To use this checkout before publishing, install its dependencies with `npm ci`, 
 node /absolute/path/to/ddev-local-wp-setup/bin/ddev-wp.js install
 ```
 
-The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. Type `run` at the final confirmation to check requirements and begin installation. Type `exit` at either exit prompt to cancel without changing the project.
+The CLI checks that a Docker provider is running before showing setup questions. If it is unavailable, start the provider and press Enter to retry, or type `exit` to quit. The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. Type `run` at the final confirmation to check requirements and begin installation. Type `exit` at either exit prompt to cancel without changing the project.
 
 ## Supported setup
 

@@ -10,6 +10,7 @@ import { wordpressSimulation } from "../fixtures/wordpress.js";
 
 function promptFor(settings, { restart = false, cancel = false } = {}) {
   return async ({ name, initial }) => {
+    if (name === "dockerProvider") return { dockerProvider: cancel ? "exit" : "" };
     if (name === "reuse") return { reuse: restart ? "Start from scratch" : "Continue with existing config" };
     if (name === "answer") return { answer: cancel ? "exit" : "run" };
     if (name === "adminPassword") return { adminPassword: settings.wordpress.adminPassword };
@@ -77,7 +78,9 @@ test("confirmation exit and Ctrl+C create no files or subprocesses", async (t) =
       CancelledError,
     );
     assert.deepEqual(await readdir(rootDir), []);
-    assert.equal(calls.length, 0);
+    assert.equal(calls.length, 1);
+    assert.equal(calls[0].command, "docker");
+    assert.deepEqual(calls[0].args, ["info"]);
   }
 });
 
@@ -85,8 +88,10 @@ test("a preflight failure saves answers without the password and stops the full 
   const rootDir = await temporaryProject(t);
   const settings = savedSettings();
   await writeFile(path.join(rootDir, configFilename), "broken JSON");
-  const { calls, runCommand } = commandRunner(() => {
-    throw new Error("Missing executable");
+  let dockerInfoChecks = 0;
+  const { calls, runCommand } = commandRunner((command, args) => {
+    if (command === "docker" && args[0] === "info" && [1, 3].includes(++dockerInfoChecks))
+      throw new Error("Docker provider stopped after the startup check");
   });
   await assert.rejects(
     runInstaller({
@@ -95,14 +100,15 @@ test("a preflight failure saves answers without the password and stops the full 
       reporter: recordingReporter().reporter,
       runCommand,
     }),
-    /Missing executable/,
+    /Docker is unavailable/,
   );
   const saved = JSON.parse(await readConfigText(rootDir));
   assert.equal(saved.wordpress.adminUsername, settings.wordpress.adminUsername);
   assert.equal(saved.wordpress.adminPassword, undefined);
   assert.equal(await readFile(path.join(rootDir, "ddev-local-wp-setup-config_000.bak"), "utf8"), "broken JSON");
   assert.deepEqual((await readdir(rootDir)).sort(), [configFilename, "ddev-local-wp-setup-config_000.bak"]);
-  assert.equal(calls.length, 1);
+  assert.equal(calls.at(-1).command, "docker");
+  assert.deepEqual(calls.at(-1).args, ["info"]);
 });
 
 test("a Composer failure prevents DDEV and WordPress execution", async (t) => {

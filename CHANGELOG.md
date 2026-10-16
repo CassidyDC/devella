@@ -4,6 +4,7 @@
 
 ### Added
 
+- Check for a running Docker provider before opening the installation wizard, with retry and exit options.
 - Added a user facing summary of the refactor changes in `docs/changes.md`.
 - Added automated CLI and configuration regression tests with Node's built-in test runner.
 - Added isolated npm package verification and CI checks on Node 22.13 and Node 24.
