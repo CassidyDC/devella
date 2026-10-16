@@ -13,7 +13,11 @@
 - Replaced shared mutable installation settings and circular helper imports with explicit inputs and a shared subprocess runner.
 - Hide unfinished Git, toolset, and VS Code options while preserving their saved configuration keys.
 - Updated the package executable, declared supported Node versions, and removed the unused spinner dependency.
-- Replaced shell-era usage instructions with current CLI and architecture documentation, and archived historical material.
+- Replaced shell-era usage instructions with current CLI and architecture documentation.
+
+### Removed
+
+- Removed the obsolete shell installer, its templates and scripts, draft CLI documentation, and unused ShellCheck configuration.
 
 ### Fixed
 

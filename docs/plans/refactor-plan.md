@@ -1,5 +1,7 @@
 # Refactor the CLI around clear ownership and explicit state
 
+This plan has been implemented. Subsequent cleanup removed the archived shell implementation and draft CLI documentation; Git retains their history. See the current [architecture](../architecture.md) and [CLI reference](../cli.md).
+
 ## Summary
 
 I would keep JavaScript and native ESM, simplify the directory structure, and separate terminal interaction from installation logic.
@@ -51,7 +53,6 @@ tests/
 docs/
   cli.md
   architecture.md
-  archive/                    # Shell implementation and old design notes
 ```
 
 Remove the redundant `js/modules` nesting and broad `helpers`, `getters`, and `components/displays` categories. Use direct imports internally rather than barrel exports that obscure dependency cycles.
@@ -101,7 +102,7 @@ Remove the redundant `js/modules` nesting and broad `helpers`, `getters`, and `c
 - Test YAML fixtures with custom hooks, comments, inline collections, CRLF, and repeated execution.
 - Run lint, formatting checks, and tests in CI on Node 22.13+ and Node 24. Correct ESLint’s browser globals to Node globals.
 - Update package entry points and published-file declarations; verify the packed CLI launches outside the checkout.
-- Rewrite the README for the Node CLI and archive historical instructions. Remove the unused spinner dependency.
+- Rewrite the README for the Node CLI. Remove the unused spinner dependency and obsolete shell implementation and draft documentation; retain their history in Git.
 - Implement in reviewable stages—tests, module restructuring, reliability fixes, documentation/packaging—with a Git commit after each completed stage.
 
 ## Assumptions
