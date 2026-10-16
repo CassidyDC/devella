@@ -1,3 +1,9 @@
+/**
+ * Ray Templates
+ *
+ * @file Render DDEV configuration for the Spatie Ray development tool.
+ */
+
 import { phpString } from "./bootstrap.js";
 
 export const rayDockerfile =

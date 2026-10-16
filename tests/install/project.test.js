@@ -1,3 +1,9 @@
+/**
+ * Project Preparation Tests
+ *
+ * @file Verify preflight checks, filesystem setup, and generated project files.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import path from "node:path";

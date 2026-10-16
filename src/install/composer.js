@@ -1,3 +1,9 @@
+/**
+ * Composer Setup
+ *
+ * @file Prepare project Composer settings and dependencies for WordPress.
+ */
+
 import { writeFile } from "node:fs/promises";
 import { assertProjectPath } from "../system/paths.js";
 import { readOptionalFile } from "./filesystem.js";

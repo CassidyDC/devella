@@ -1,4 +1,10 @@
 /**
+ * WordPress Setup
+ *
+ * @file Configure WordPress settings and install selected development tools.
+ */
+
+/**
  * Configure WordPress options, clean fresh-install defaults, and install selected tools.
  * Destructive content cleanup is limited to a new WordPress installation.
  *

@@ -1,4 +1,10 @@
 /**
+ * Composer Template
+ *
+ * @file Render the initial Composer manifest for a WordPress project.
+ */
+
+/**
  * Render the initial Composer manifest for the WordPress project.
  *
  * @param {string} coreDir Project-relative WordPress installation directory.

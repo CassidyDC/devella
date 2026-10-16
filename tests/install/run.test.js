@@ -1,3 +1,9 @@
+/**
+ * Installer Tests
+ *
+ * @file Verify complete installation, restart recovery, and failure handling.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import path from "node:path";

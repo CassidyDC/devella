@@ -1,3 +1,9 @@
+/**
+ * CLI Argument Tests
+ *
+ * @file Verify CLI argument parsing, dispatch, output flags, and cancellation.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { parseArguments } from "../../src/cli/arguments.js";

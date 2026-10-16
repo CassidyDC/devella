@@ -1,3 +1,9 @@
+/**
+ * Project Test Fixtures
+ *
+ * @file Create temporary projects and reusable installer test dependencies.
+ */
+
 import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";

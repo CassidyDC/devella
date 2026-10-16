@@ -1,3 +1,9 @@
+/**
+ * Validation Tests
+ *
+ * @file Verify input validation for slugs, credentials, and WordPress paths.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import {

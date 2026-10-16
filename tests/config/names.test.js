@@ -1,3 +1,9 @@
+/**
+ * Project Name Tests
+ *
+ * @file Verify stable project slugs, titles, and PHP namespaces.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { generateNamespaceFromName, generateSlugFromName, generateTitleFromSlug } from "../../src/config/names.js";

@@ -1,3 +1,9 @@
+/**
+ * CLI Smoke Tests
+ *
+ * @file Exercise the executable through help, version, error, and import flows.
+ */
+
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";

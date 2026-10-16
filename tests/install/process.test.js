@@ -1,3 +1,9 @@
+/**
+ * Process Execution Tests
+ *
+ * @file Verify safe subprocess arguments, output modes, and failure reporting.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { Writable } from "node:stream";

@@ -1,3 +1,9 @@
+/**
+ * CLI Runner
+ *
+ * @file Dispatch CLI actions and translate failures into process status codes.
+ */
+
 import { readFile } from "node:fs/promises";
 import { parseArguments } from "./arguments.js";
 import { createReporter } from "./ui/reporter.js";

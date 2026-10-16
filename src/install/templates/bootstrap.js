@@ -1,3 +1,9 @@
+/**
+ * Bootstrap Templates
+ *
+ * @file Render initial WordPress bootstrap files and escaped PHP literals.
+ */
+
 import { stringify } from "yaml";
 
 /**

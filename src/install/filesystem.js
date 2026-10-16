@@ -1,3 +1,9 @@
+/**
+ * Project Filesystem
+ *
+ * @file Create and preserve project files and directories required by the installer.
+ */
+
 import path from "node:path";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { assertProjectPath } from "../system/paths.js";

@@ -1,3 +1,9 @@
+/**
+ * Configuration Store Tests
+ *
+ * @file Verify saved settings, backups, and malformed configuration handling.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile, readdir, writeFile } from "node:fs/promises";

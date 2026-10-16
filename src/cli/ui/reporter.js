@@ -1,3 +1,9 @@
+/**
+ * Terminal Reporter
+ *
+ * @file Render CLI messages, headings, help, and diagnostics to terminal streams.
+ */
+
 import stringWidth from "string-width";
 import { createStyles } from "./styles.js";
 import { commands, flags } from "../definition.js";

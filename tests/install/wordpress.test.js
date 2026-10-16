@@ -1,3 +1,9 @@
+/**
+ * WordPress Setup Tests
+ *
+ * @file Verify WordPress configuration, fresh installs, and development tool setup.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { setupWordPress } from "../../src/install/wordpress.js";

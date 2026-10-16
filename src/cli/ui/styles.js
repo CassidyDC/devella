@@ -1,3 +1,9 @@
+/**
+ * Terminal Styles
+ *
+ * @file Create ANSI color helpers for enabled or plain terminal output.
+ */
+
 import colors from "ansi-colors";
 
 /**

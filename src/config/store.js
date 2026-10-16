@@ -1,3 +1,9 @@
+/**
+ * Configuration Store
+ *
+ * @file Read, validate, and safely save resumable installation settings.
+ */
+
 import { constants } from "node:fs";
 import { copyFile, readFile, readdir, rename, rm, writeFile } from "node:fs/promises";
 import { randomUUID } from "node:crypto";

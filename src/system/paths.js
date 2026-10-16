@@ -1,3 +1,9 @@
+/**
+ * Project Paths
+ *
+ * @file Safe normalization and validation of paths within a project directory.
+ */
+
 import path from "node:path";
 import { lstat, realpath } from "node:fs/promises";
 

@@ -1,4 +1,10 @@
 /**
+ * WordPress Test Fixture
+ *
+ * @file Simulate WP-CLI commands and mutable WordPress installation state.
+ */
+
+/**
  * Create a stateful WP-CLI simulation; unknown commands fail instead of silently passing.
  *
  * @param {object} [overrides={}] Initial state values that replace fixture defaults.

@@ -1,3 +1,9 @@
+/**
+ * Installation Preflight
+ *
+ * @file Check project dependencies, paths, and existing files before installation.
+ */
+
 import { constants } from "node:fs";
 import { access, realpath, stat } from "node:fs/promises";
 import { parseDocument, isMap } from "yaml";

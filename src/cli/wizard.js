@@ -1,3 +1,9 @@
+/**
+ * Installation Wizard
+ *
+ * @file Interactive prompts, saved-answer recovery, and cancellation handling for installation.
+ */
+
 import { createRequire } from "node:module";
 import { createSettingsSchema } from "../config/settings.js";
 import { validateExecInstaller, validateField } from "../config/validation.js";

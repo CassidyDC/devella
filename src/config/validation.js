@@ -1,3 +1,9 @@
+/**
+ * Settings Validation
+ *
+ * @file Validate installation settings and report field-specific errors.
+ */
+
 import { projectRelativePath } from "../system/paths.js";
 
 /**

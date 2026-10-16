@@ -1,3 +1,9 @@
+/**
+ * CLI Definition
+ *
+ * @file Available CLI commands, aliases, flags, and help descriptions.
+ */
+
 export const commands = {
   install: { alias: "i", description: "Run the WordPress installation wizard" },
 };

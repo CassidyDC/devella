@@ -1,3 +1,9 @@
+/**
+ * Installer Runner
+ *
+ * @file Coordinate wizard answers, project preparation, DDEV, Composer, and WordPress setup.
+ */
+
 import { CancelledError, createPrompt, runWizard } from "../cli/wizard.js";
 import { normalizeSettings } from "../config/normalize.js";
 import { saveConfig } from "../config/store.js";

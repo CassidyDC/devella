@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * DDEV WordPress CLI Entry Point
+ *
+ * @file Start the DDEV WordPress setup command-line interface.
+ */
+
 import { runCli } from "../src/cli/run.js";
 
 try {

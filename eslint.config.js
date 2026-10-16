@@ -5,6 +5,8 @@
  * @see https://eslint.org/docs/latest/use/configure/configuration-files
  * @type {import("eslint").Linter.Config[]}
  * @version 1.0.0
+ *
+ * @file Configure linting rules and ignored paths for the project.
  */
 
 import globals from "globals";

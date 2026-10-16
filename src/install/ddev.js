@@ -1,3 +1,9 @@
+/**
+ * DDEV Setup
+ *
+ * @file Update DDEV configuration and configure WordPress constants and hooks.
+ */
+
 import { readFile, writeFile } from "node:fs/promises";
 import { isMap, isSeq, parseDocument } from "yaml";
 import { assertProjectPath } from "../system/paths.js";

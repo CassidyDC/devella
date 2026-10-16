@@ -1,3 +1,9 @@
+/**
+ * Project Names
+ *
+ * @file Generate project slugs, titles, DDEV names, and PHP namespace values.
+ */
+
 import path from "node:path";
 
 /**

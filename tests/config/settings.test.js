@@ -1,3 +1,9 @@
+/**
+ * Settings Tests
+ *
+ * @file Verify conditional settings collection and normalization behavior.
+ */
+
 import assert from "node:assert/strict";
 import test from "node:test";
 import { collectSettings } from "../../src/cli/wizard.js";

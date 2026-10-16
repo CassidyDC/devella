@@ -1,3 +1,9 @@
+/**
+ * Settings Normalization
+ *
+ * @file Normalize and validate collected settings before installation.
+ */
+
 import { createSettingsSchema } from "./settings.js";
 import { validateField } from "./validation.js";
 import { projectRelativePath } from "../system/paths.js";
