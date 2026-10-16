@@ -42,7 +42,8 @@ export async function runCli(argv, dependencies = {}) {
     else if (action === "version") reporter.info(`v${pkg.version}`);
     else if (action === "debug") reporter.debug(pkg, rootDir);
     else {
-      const install = dependencies.install ?? (await import("../install/run.js")).runInstaller;
+      const install =
+        dependencies.install ?? (await import(new URL("../install/run.js", import.meta.url))).runInstaller;
       await install({ ...dependencies, rootDir, reporter });
     }
 
