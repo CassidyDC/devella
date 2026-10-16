@@ -4,7 +4,8 @@ import { assertProjectPath } from "../system/paths.js";
 import { readOptionalFile } from "./filesystem.js";
 import { phpString } from "./templates/bootstrap.js";
 
-const shellQuote = (value) => `'${value.replaceAll("'", "'\"'\"'")}'`;
+const shellQuote = (value) =>
+  `"${value.replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("$", "\\$").replaceAll("`", "\\`")}"`;
 
 export function wordpressConstants({ wordpress: wp }) {
   return {
