@@ -1,7 +1,13 @@
 import path from "node:path";
 import { lstat, realpath } from "node:fs/promises";
 
-/** Legacy leading slashes denote paths relative to the project, not the host. */
+/**
+ * Normalize a project-relative path; legacy leading slashes are not host-root paths.
+ *
+ * @param {string} value User- or config-provided project path.
+ * @returns {string} Normalized relative path using forward slashes.
+ * @throws {Error} If the value is absolute, empty, or contains traversal segments.
+ */
 export function projectRelativePath(value) {
   if (typeof value !== "string" || /[\0\r\n\\]/.test(value) || /^[a-z]:/i.test(value)) {
     throw new Error("Use a project-relative path with forward slashes.");
@@ -13,11 +19,25 @@ export function projectRelativePath(value) {
   return relative;
 }
 
+/**
+ * Resolve a validated project-relative path against the project root.
+ *
+ * @param {string} rootDir Absolute project root directory.
+ * @param {string} relative Project-relative path to resolve.
+ * @returns {string} Absolute path inside the project root.
+ */
 export function resolveProjectPath(rootDir, relative) {
   return path.resolve(rootDir, projectRelativePath(relative));
 }
 
-/** Reject existing symlinks that would redirect a project write outside its root. */
+/**
+ * Reject existing symlinks that would redirect a project write outside its root.
+ *
+ * @param {string} rootDir Existing project root directory.
+ * @param {string} relative Project-relative destination to validate.
+ * @returns {Promise<string>} Resolved target path after checking its existing ancestors.
+ * @throws {Error} If a symlink resolves outside the project root or cannot be resolved safely.
+ */
 export async function assertProjectPath(rootDir, relative) {
   const target = resolveProjectPath(rootDir, relative);
   const root = await realpath(rootDir);

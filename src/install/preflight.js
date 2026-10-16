@@ -8,7 +8,12 @@ import { renderIndex } from "./templates/bootstrap.js";
 import { updateDdevConfig } from "./ddev.js";
 import { readComposer } from "./composer.js";
 
-/** Inspect project paths and existing bootstrap files without changing them. */
+/**
+ * Inspect project paths and existing bootstrap files without changing them.
+ * @param {import("./run.js").InstallContext} context Project directory and normalized settings.
+ * @returns {Promise<{composer: object|null}>} Existing parsed Composer manifest, if present.
+ * @throws {Error} If an existing path, bootstrap file, or Composer setting conflicts with the installation.
+ */
 export async function inspectProject(context) {
   const { rootDir, settings } = context;
   const root = await stat(rootDir);
@@ -74,6 +79,12 @@ export async function inspectProject(context) {
   return { composer };
 }
 
+/**
+ * Check required tools, Docker, DDEV registration, and existing project configuration.
+ * @param {import("./run.js").InstallContext} context Project directory, settings, runner, and reporter.
+ * @returns {Promise<{composer: object|null, registeredProject: boolean}>} Preflight facts for later install stages.
+ * @throws {Error} If a dependency is missing, Docker is unavailable, or a project conflict is found.
+ */
 export async function preflight(context) {
   const facts = await inspectProject(context);
   const { rootDir, runCommand, reporter } = context;

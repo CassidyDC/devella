@@ -1,4 +1,8 @@
-/** A stateful WP-CLI simulation: unknown commands fail instead of silently passing. */
+/**
+ * Create a stateful WP-CLI simulation; unknown commands fail instead of silently passing.
+ * @param {object} [overrides={}] Initial state values that replace fixture defaults.
+ * @returns {{state: object, handle: (args: string[]) => object}} Mutable simulation state and command handler.
+ */
 export function wordpressSimulation(overrides = {}) {
   const state = {
     installed: false,
@@ -15,6 +19,11 @@ export function wordpressSimulation(overrides = {}) {
     themes: [],
     ...overrides,
   };
+  /**
+   * Handle a simulated DDEV or WP-CLI invocation and update fixture state.
+   * @param {string[]} args Command and arguments from the process runner.
+   * @returns {object} Simulated stdout or exit status for the command.
+   */
   const handle = (args) => {
     if (args[0] === "exec" && args.includes("wp")) {
       return handle(["wp", ...args.slice(args.indexOf("wp") + 1).filter((arg) => !arg.startsWith("--path="))]);
@@ -80,6 +89,12 @@ export function wordpressSimulation(overrides = {}) {
   return { state, handle };
 }
 
+/**
+ * Fail the simulation when a command does not begin with the WP-CLI executable.
+ * @param {string[]} args Command arguments being checked.
+ * @returns {void}
+ * @throws {Error} If the invocation is not a WP-CLI command.
+ */
 function assertWp(args) {
   if (args[0] !== "wp") throw new Error(`Expected WP-CLI: ${args.join(" ")}`);
 }

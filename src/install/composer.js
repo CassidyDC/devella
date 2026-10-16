@@ -3,6 +3,12 @@ import { assertProjectPath } from "../system/paths.js";
 import { readOptionalFile } from "./filesystem.js";
 import { renderComposer } from "./templates/composer.js";
 
+/**
+ * Parse Composer JSON and validate the object fields managed by the installer.
+ * @param {string} text Existing `composer.json` contents.
+ * @returns {object} Parsed manifest with object-shaped managed sections.
+ * @throws {Error} If the JSON or a managed section has an invalid type.
+ */
 export function readComposer(text) {
   let composer;
   try {
@@ -32,6 +38,12 @@ export function readComposer(text) {
   return composer;
 }
 
+/**
+ * Merge required WordPress Composer settings and install project dependencies.
+ * @param {import("./run.js").InstallContext} context Project root, normalized settings, runner, and reporter.
+ * @returns {Promise<void>} Resolves when Composer has installed WordPress dependencies.
+ * @throws {Error} If the manifest is invalid or Composer exits unsuccessfully.
+ */
 export async function prepareComposer({ rootDir, settings, runCommand, reporter }) {
   reporter.heading("Preparing Composer and WordPress Core Files");
   const filename = await assertProjectPath(rootDir, "composer.json");

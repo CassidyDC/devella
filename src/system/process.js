@@ -1,6 +1,33 @@
 import { spawn } from "node:child_process";
 
+/**
+ * @typedef {object} CommandResult Captured subprocess result.
+ * @property {string} stdout Text written to standard output.
+ * @property {string} stderr Text written to standard error.
+ * @property {number|null} exitCode Numeric exit code, or null when the process was signaled.
+ * @property {string|null} signal Signal that interrupted the process, if any.
+ */
+
+/**
+ * @typedef {object} CommandOptions Subprocess behavior and output routing.
+ * @property {string} cwd Working directory required for process execution.
+ * @property {"stream"|"capture"|"silent"} [output="stream"] Whether output is forwarded, captured, or discarded.
+ * @property {boolean} [allowFailure=false] Resolve nonzero exits instead of rejecting.
+ * @property {NodeJS.WritableStream} [stdout=process.stdout] Destination for streamed standard output.
+ * @property {NodeJS.WritableStream} [stderr=process.stderr] Destination for streamed standard error.
+ */
+
+/**
+ * Represent a subprocess launch failure, interruption, or nonzero exit.
+ * @extends Error
+ */
 export class CommandError extends Error {
+  /**
+   * Create a command error and retain captured subprocess details.
+   * @param {string} command Executable name that was run.
+   * @param {CommandResult} result Captured output, exit code, and signal.
+   * @param {Error} [cause] Underlying process launch error, if spawning failed.
+   */
   constructor(command, result, cause) {
     const detail =
       cause?.code === "ENOENT"
@@ -15,11 +42,13 @@ export class CommandError extends Error {
 }
 
 /**
- * @param {string} command Executable name; never interpreted by a shell.
- * @param {string[]} args Separate arguments, including any values with spaces.
- * @param {{cwd: string, output?: "stream"|"capture"|"silent", allowFailure?: boolean,
- * stdout?: NodeJS.WritableStream, stderr?: NodeJS.WritableStream}} options
- * @returns {Promise<{stdout: string, stderr: string, exitCode: number|null, signal: string|null}>}
+ * Execute a dependency operation without a shell and reject spawn or exit failures.
+ *
+ * @param {string} command Executable name; it is never interpreted by a shell.
+ * @param {string[]} args Separate arguments passed to the executable, including values with spaces.
+ * @param {CommandOptions} [options={}] Working directory, output routing, and exit handling.
+ * @returns {Promise<CommandResult>} Captured output and process completion status.
+ * @throws {CommandError} If the process cannot start, is interrupted, or exits unsuccessfully.
  */
 export function runCommand(
   command,

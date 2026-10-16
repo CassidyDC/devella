@@ -4,6 +4,11 @@ import { assertProjectPath } from "../system/paths.js";
 import { renderIndex, renderWpCli } from "./templates/bootstrap.js";
 import { rayDockerfile, rayIni, renderRay } from "./templates/ray.js";
 
+/**
+ * Build the map of generated project file paths and contents.
+ * @param {import("./run.js").InstallContext} context Project root and normalized settings.
+ * @returns {Record<string, string>} Relative file paths mapped to their initial contents.
+ */
 export function projectFiles({ rootDir, settings }) {
   const files = {
     "index.php": renderIndex(settings.wordpress.coreDir),
@@ -19,6 +24,11 @@ export function projectFiles({ rootDir, settings }) {
   return files;
 }
 
+/**
+ * List directories that must exist for the selected project settings.
+ * @param {import("./run.js").InstallContext} context Normalized WordPress, theme, and plugin settings.
+ * @returns {string[]} Project-relative directories to create recursively.
+ */
 export function projectDirectories({ settings }) {
   const directories = [settings.wordpress.coreDir, "wp-content/plugins", "wp-content/themes"];
   if (settings.plugin.custom) directories.push(`wp-content/plugins/${settings.plugin.customSlug}`);
@@ -30,6 +40,11 @@ export function projectDirectories({ settings }) {
   return directories;
 }
 
+/**
+ * Read a file as UTF-8, returning null when it is absent.
+ * @param {string} filename Absolute file path to read.
+ * @returns {Promise<string|null>} File contents, or null when the path does not exist.
+ */
 export async function readOptionalFile(filename) {
   try {
     return await readFile(filename, "utf8");
@@ -39,7 +54,12 @@ export async function readOptionalFile(filename) {
   }
 }
 
-/** Create missing files exclusively; never overwrite a user's existing files. */
+/**
+ * Create required project directories and files without overwriting existing files.
+ * @param {import("./run.js").InstallContext} context Project root, settings, and reporter.
+ * @returns {Promise<void>} Resolves after all missing directories and files are prepared.
+ * @throws {Error} If a path is unsafe or a filesystem operation fails.
+ */
 export async function prepareFilesystem(context) {
   const { rootDir, reporter } = context;
   reporter.heading("Preparing Project Files");

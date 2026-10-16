@@ -8,6 +8,12 @@ import { CancelledError } from "../../src/cli/wizard.js";
 import { temporaryProject, savedSettings, commandRunner, recordingReporter } from "../fixtures/project.js";
 import { wordpressSimulation } from "../fixtures/wordpress.js";
 
+/**
+ * Return a prompt stub that supplies saved answers and run confirmation.
+ * @param {object} settings Wizard settings to return for each prompt.
+ * @param {{restart?: boolean, cancel?: boolean}} [options={}] Control config restart or final cancellation.
+ * @returns {(options: object) => Promise<object>} Prompt adapter returning simulated answers.
+ */
 function promptFor(settings, { restart = false, cancel = false } = {}) {
   return async ({ name, initial }) => {
     if (name === "dockerProvider") return { dockerProvider: cancel ? "exit" : "" };

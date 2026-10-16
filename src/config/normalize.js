@@ -15,7 +15,13 @@ import { projectRelativePath } from "../system/paths.js";
  * @property {{docs: boolean}} devConfig
  */
 
-/** Project only enabled, validated fields into execution state. Never mutate saved input. */
+/**
+ * Project enabled, validated fields into execution state without mutating saved input.
+ * @param {object} raw Raw wizard or saved configuration values.
+ * @param {string} rootDir Project directory used to normalize relative paths.
+ * @returns {InstallSettings} Validated settings with inactive options removed and paths normalized.
+ * @throws {Error} If any enabled field fails validation.
+ */
 export function normalizeSettings(raw, rootDir) {
   const schema = createSettingsSchema(rootDir);
   const settings = Object.fromEntries(Object.keys(schema).map((section) => [section, {}]));

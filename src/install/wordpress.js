@@ -1,16 +1,47 @@
-/** Configure an installed site; destructive defaults cleanup is limited to a new installation. */
+/**
+ * Configure WordPress options, clean fresh-install defaults, and install selected tools.
+ * Destructive content cleanup is limited to a new WordPress installation.
+ * @param {import("./run.js").InstallContext} context Project root, settings, process runner, and reporter.
+ * @returns {Promise<{freshInstall: boolean}>} Whether WordPress was installed during this run.
+ * @throws {Error} If WP-CLI, the database, or a required installation step fails.
+ */
 export async function setupWordPress({ rootDir, settings, runCommand, reporter }) {
+  /**
+   * Run a WP-CLI command inside the current DDEV project.
+   * @param {string[]} args WP-CLI arguments following `wp`.
+   * @param {object} [options={}] Process options such as output routing.
+   * @returns {Promise<import("../system/process.js").CommandResult>} Captured subprocess result.
+   */
   const wp = (args, options = {}) =>
     runCommand("ddev", ["wp", ...args], { cwd: rootDir, output: "capture", ...options });
+
+  /**
+   * Return captured WP-CLI output without its trailing newline.
+   * @param {string[]} args WP-CLI arguments following `wp`.
+   * @returns {Promise<string>} Standard output with one final newline removed.
+   */
   const capture = async (args) => (await wp(args)).stdout.replace(/\r?\n$/, "");
+
   // Suppress DDEV's generic failure wrapper, retaining WP-CLI diagnostics so an
   // expected status 1 (not installed/not present) cannot mask an infrastructure error.
+  /**
+   * Probe WP-CLI while preserving nonzero status and diagnostic output.
+   * @param {string[]} args WP-CLI arguments following `wp`.
+   * @returns {Promise<import("../system/process.js").CommandResult>} Captured result, including nonzero status.
+   */
   const probe = (args) =>
     runCommand(
       "ddev",
       ["exec", "--quiet", "--raw", "--", "wp", `--path=/var/www/html/${settings.wordpress.coreDir}`, ...args],
       { cwd: rootDir, output: "capture", allowFailure: true },
     );
+
+  /**
+   * Update a WordPress option only when its stored value differs.
+   * @param {string} name WordPress option name.
+   * @param {string} value Desired option value.
+   * @returns {Promise<void>} Resolves after the option is already correct or updated.
+   */
   const updateOption = async (name, value) => {
     if ((await capture(["option", "get", name])) !== value) await wp(["option", "update", name, value]);
   };

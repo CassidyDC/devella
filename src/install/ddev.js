@@ -4,9 +4,19 @@ import { assertProjectPath } from "../system/paths.js";
 import { readOptionalFile } from "./filesystem.js";
 import { phpString } from "./templates/bootstrap.js";
 
+/**
+ * Quote a value for a POSIX shell while preserving literal shell metacharacters.
+ * @param {string} value Argument value to pass literally through the shell.
+ * @returns {string} Double-quoted shell argument with expansion characters escaped.
+ */
 const shellQuote = (value) =>
   `"${value.replaceAll("\\", "\\\\").replaceAll('"', '\\"').replaceAll("$", "\\$").replaceAll("`", "\\`")}"`;
 
+/**
+ * Build the PHP constants managed by the DDEV post-start hook.
+ * @param {{wordpress: import("../config/normalize.js").InstallSettings["wordpress"]}} settings Normalized WordPress settings.
+ * @returns {Record<string, string>} Constant names mapped to WP-CLI values.
+ */
 export function wordpressConstants({ wordpress: wp }) {
   return {
     WP_CONTENT_DIR: `__DIR__ . '/wp-content'`,
@@ -20,7 +30,13 @@ export function wordpressConstants({ wordpress: wp }) {
   };
 }
 
-/** Update owned YAML fields while keeping unrelated nodes, hooks, and comments. */
+/**
+ * Update installer-owned DDEV YAML while preserving unrelated nodes, hooks, and comments.
+ * @param {string} content Existing `.ddev/config.yaml` contents.
+ * @param {import("../config/normalize.js").InstallSettings} settings Normalized installation settings.
+ * @returns {string} Updated YAML text with managed WordPress hooks and paths.
+ * @throws {Error} If the YAML is invalid or contains incompatible project settings.
+ */
 export function updateDdevConfig(content, settings) {
   const document = parseDocument(content);
   if (document.errors.length || !isMap(document.contents))
@@ -71,6 +87,12 @@ export function updateDdevConfig(content, settings) {
   return content.includes("\r\n") ? result.replaceAll("\n", "\r\n") : result;
 }
 
+/**
+ * Create or update DDEV configuration and start the project.
+ * @param {import("./run.js").InstallContext} context Project root, settings, runner, reporter, and preflight facts.
+ * @returns {Promise<void>} Resolves when DDEV has configured and started the project.
+ * @throws {Error} If DDEV configuration or project startup fails.
+ */
 export async function setupDdev({ rootDir, settings, runCommand, reporter, facts }) {
   reporter.heading("Configuring DDEV");
   const filename = await assertProjectPath(rootDir, ".ddev/config.yaml");

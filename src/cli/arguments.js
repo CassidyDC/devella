@@ -1,6 +1,10 @@
 import { commands, flags } from "./definition.js";
 
-/** Parse user arguments only, normalizing the existing multi-letter aliases. */
+/**
+ * Parse user arguments, resolving command and flag aliases from the CLI definition.
+ * @param {string[]} argv Arguments following the executable name.
+ * @returns {{command: string|null, flags: Set<string>, errors: string[]}} Parsed action flags and input errors.
+ */
 export function parseArguments(argv) {
   const parsed = { command: null, flags: new Set(), errors: [] };
   let commandCount = 0;

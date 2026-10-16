@@ -5,6 +5,11 @@ import { normalizeSettings } from "../../src/config/normalize.js";
 import { savedSettings, commandRunner, recordingReporter } from "../fixtures/project.js";
 import { wordpressSimulation } from "../fixtures/wordpress.js";
 
+/**
+ * Combine a WP-CLI simulation with the installer dependencies used by tests.
+ * @param {{state: object, handle: Function}} simulation Simulated WordPress state and command handler.
+ * @returns {object} WordPress setup context with reporter and command runner.
+ */
 function context(simulation) {
   return {
     rootDir: "/tmp/test-site",
