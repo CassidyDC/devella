@@ -2,21 +2,27 @@ import { projectRelativePath } from "../system/paths.js";
 
 export const validateString = (value) =>
   (typeof value === "string" && value.trim().length > 0) || "At least one character is required.";
+
 export const validateSlug = (value) =>
   (typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value.trim())) ||
   "Use lowercase letters, digits, and single dashes between words.";
+
 export const validateWPAdminEmail = (value) =>
   (typeof value === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) || "Enter a valid email address.";
+
 export const validateWPAdminPassword = (value) =>
   (typeof value === "string" && value.length >= 5) || "Password must contain at least 5 characters.";
+
 export const validateWPAdminUsername = (value) =>
   (typeof value === "string" && /^[a-z0-9 _.@-]{1,60}$/i.test(value.trim())) ||
   "Use 1–60 letters, numbers, spaces, _, ., -, or @.";
+
 export const validateNamespace = (value) =>
   (typeof value === "string" &&
     /^[A-Z][a-z0-9_]*(?:\\[A-Z][a-z0-9_]*)*$/i.test(value.trim()) &&
     /^[A-Z]/.test(value.trim())) ||
   "Enter a PHP namespace starting with a capital letter.";
+
 export const validateExecInstaller = (value) =>
   (typeof value === "string" && ["run", "exit"].includes(value.trim().toLowerCase())) || 'Type "run" or "exit".';
 

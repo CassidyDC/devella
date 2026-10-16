@@ -2,6 +2,7 @@ import { phpString } from "./bootstrap.js";
 
 export const rayDockerfile =
   "# Install Global Ray\nENV COMPOSER_HOME=/usr/local/composer/\nRUN composer global require spatie/global-ray\n";
+
 export const rayIni =
   "auto_prepend_file = '/usr/local/composer/vendor/spatie/global-ray/src/scripts/global-ray-loader.php'\n";
 
