@@ -62,7 +62,7 @@ export function createSettingsSchema(rootDir) {
       projectName: input("DDEV project name:", {
         initial: generateSlugFromName(generateProjectNameFromDir(rootDir)),
         validate: validateSlug,
-        hint: "Defaults to the current directory name, without leading non-alphanumeric characters or trailing .ddev.site.",
+        hint: "Defaults to the current directory name, without leading non-alphanumeric characters or characters after a period.",
       }),
       localhost: confirm("Use localhost to resolve your DDEV domain?", {
         hint: "Using localhost may require permission to update your hosts file.",
