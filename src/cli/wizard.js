@@ -23,11 +23,7 @@ export async function createPrompt() {
   const { default: enquirer } = await import("enquirer");
   return async (options) => {
     try {
-      const promptOptions =
-        options.type === "input" && options.hint && options.initial
-          ? { ...options, message: `${options.message} (${options.hint})`, hint: undefined }
-          : options;
-      return await enquirer.prompt(promptOptions);
+      return await enquirer.prompt(options);
     } catch (error) {
       if (!(error instanceof Error)) throw new CancelledError(130);
       throw error;
@@ -87,9 +83,9 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
 
 export async function runWizard({ rootDir, prompt, reporter }) {
   reporter.heading("Installation Wizard");
-  reporter.warn(
-    `Note: make sure you are running this wizard from the directory you want to install your local DDEV server in. (You are currently in ${rootDir}). If that is not where you want to be, type "exit" then press enter, and restart the wizard from the correct directory.`,
-  );
+  reporter.warn(`Check the project directory before continuing: ${rootDir}`);
+  reporter.warn("The installer will create files and configure this directory as a DDEV WordPress project.");
+  reporter.info("");
   const { answer: continueAnswer } = await prompt({
     type: "input",
     name: "answer",

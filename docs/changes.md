@@ -4,7 +4,7 @@ This document summarizes the user visible changes introduced by the v3 refactor.
 
 ## Wizard questions and wording
 
-- The wizard begins with the directory check note and shows the current project path. Press Enter to continue or type `exit` to leave before answering setup questions.
+- The wizard begins with a two-line warning showing the current project path and reminding users that files and DDEV configuration will be created there. A blank line separates it from the continue/exit prompt.
 - Section headings now use capitalized names, such as `Installation Wizard`, `DDEV Settings`, and `WordPress Settings`.
 - Prompt hints explain defaults and the effect of choices. Hints remain visible beside prefilled answers.
 - The project type question is a working selection menu for Theme, Plugin, or Both.
