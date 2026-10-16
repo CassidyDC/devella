@@ -2,8 +2,9 @@ import stringWidth from "string-width";
 import { createStyles } from "./styles.js";
 import { commands, flags } from "../definition.js";
 
-export function createReporter({ stdout = process.stdout, stderr = process.stderr } = {}) {
-  const c = createStyles(!!stdout.isTTY);
+export function createReporter({ stdout = process.stdout, stderr = process.stderr, env = process.env } = {}) {
+  const colorEnabled = env.FORCE_COLOR === "0" ? false : env.FORCE_COLOR != null || (!env.NO_COLOR && !!stdout.isTTY);
+  const c = createStyles(colorEnabled);
   const line = (value = "") => stdout.write(`${value}\n`);
   return {
     info: line,
@@ -16,9 +17,10 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
     header(pkg) {
       const lines = [`${pkg.displayName} v${pkg.version}`, `By ${pkg.author.name} (${pkg.author.url})`];
       const width = Math.max(...lines.map(stringWidth));
-      line(`┌${"─".repeat(width + 2)}┐`);
-      for (const text of lines) line(`│ ${text}${" ".repeat(width - stringWidth(text))} │`);
-      line(`└${"─".repeat(width + 2)}┘`);
+      line(c.cyan(`┌${"─".repeat(width + 2)}┐`));
+      line(`│ ${c.bold(lines[0])}${" ".repeat(width - stringWidth(lines[0]))} │`);
+      line(`│ ${c.dim(lines[1])}${" ".repeat(width - stringWidth(lines[1]))} │`);
+      line(c.cyan(`└${"─".repeat(width + 2)}┘`));
     },
     help(pkg) {
       line(`${pkg.description}\n\nUsage:\n  ddev-wp <command> [flags]\n\nCommands:`);

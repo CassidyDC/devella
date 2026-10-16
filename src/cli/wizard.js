@@ -45,6 +45,9 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
       void enabled;
       void validate;
       const resolvedInitial = typeof initial === "function" ? initial(settings) : initial;
+      if (field.choices) {
+        options.choices = field.choices.map((choice) => (typeof choice === "object" ? { ...choice } : choice));
+      }
       while (true) {
         const answer = await prompt({
           ...options,
@@ -67,6 +70,9 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
 }
 
 export async function runWizard({ rootDir, prompt, reporter }) {
+  reporter.heading("Installation wizard");
+  reporter.warn(`Check the project directory before continuing: ${rootDir}`);
+  reporter.warn("The installer will create files and configure this directory as a DDEV WordPress project.");
   const text = await readConfigText(rootDir);
   let existing = {};
   let restart = false;
@@ -81,12 +87,10 @@ export async function runWizard({ rootDir, prompt, reporter }) {
     if (!restart) existing = parseConfig(text);
   }
   if (text === null || restart) {
-    reporter.heading("Installation wizard");
-    reporter.info(`Project directory: ${rootDir}`);
     const { answer } = await prompt({
       type: "input",
       name: "answer",
-      message: 'Press Enter to continue, or type "exit" to quit:',
+      message: 'Check the directory above. Press Enter to continue, or type "exit" to quit:',
     });
     if (answer.trim().toLowerCase() === "exit") throw new CancelledError();
   }

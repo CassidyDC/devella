@@ -18,6 +18,8 @@
 ### Fixed
 
 - Corrected informational flag precedence, header suppression, and error exit codes.
+- Keep select choice metadata intact during interactive validation and warn users to check the target directory before continuing.
+- Restore colored CLI headers and support `FORCE_COLOR` for terminals that do not report TTY output.
 - Validate reused settings and disable debug paths consistently when logging is off.
 - Preserve existing WordPress content and credentials on reruns and avoid duplicate setup records and hooks.
 
