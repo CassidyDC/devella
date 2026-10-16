@@ -68,6 +68,6 @@ npm run test:package
 
 Tests use temporary projects and simulated external commands, so they do not require Docker. The package check packs and installs the CLI in a temporary consumer project; it may access the npm registry for runtime dependencies. CI runs these checks on Node 22.13 and Node 24.
 
-See the [CLI reference](docs/cli.md), [architecture](docs/architecture.md), and [refactor plan](docs/plans/refactor-plan.md). The obsolete shell implementation and draft CLI documentation have been removed; their history remains available in Git.
+See the [CLI reference](docs/cli.md), [architecture](docs/architecture.md), and [refactor plan](docs/plans/refactor-plan.md). Historical shell scripts and early CLI design notes are kept in [the archive](docs/archive/README.md).
 
 Report issues in the [GitHub repository](https://github.com/CassidyDC/ddev-local-wp-setup/issues).
