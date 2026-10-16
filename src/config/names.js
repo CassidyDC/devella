@@ -13,12 +13,10 @@ export function generateNamespaceFromName(name) {
 }
 
 export function generateProjectNameFromDir(rootDir) {
-  return generateTitleFromSlug(
-    path
-      .basename(rootDir)
-      .replace(/^[^a-z0-9]+/i, "")
-      .replace(/\.ddev\.site$/i, ""),
-  );
+  const directoryName = path.basename(rootDir).replace(/\.ddev\.site$/i, "");
+  const projectSlug = generateSlugFromName(directoryName).replace(/^-+/, "");
+
+  return generateTitleFromSlug(projectSlug);
 }
 
 export function generateSlugFromName(name) {
