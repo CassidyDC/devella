@@ -139,7 +139,8 @@ export async function runWizard({ rootDir, prompt, reporter }) {
     if (!restart) existing = parseConfig(text);
   }
   const settings = await collectSettings(rootDir, existing, { prompt, reporter });
-  reporter.info("All settings have been collected. The administrator password will not be saved.");
+  reporter.info("");
+  reporter.success("All settings have been collected. The administrator password will not be saved.");
   reporter.info("");
   const { answer } = await prompt({
     type: "input",

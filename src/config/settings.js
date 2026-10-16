@@ -90,13 +90,13 @@ export function createSettingsSchema(rootDir) {
       siteTitle: input("Site Title:", {
         initial: ({ ddev }) => generateTitleFromSlug(ddev.projectName),
         validate: validateString,
-        hint: "Defaults to the DDEV project name.",
+        hint: "Defaults to a formatted version of the DDEV project name.",
       }),
       siteTagline: input("Site Tagline:", { initial: "", hint: "Leave blank if no tagline is desired." }),
       coreDir: input("WordPress Core Directory:", {
         initial: "/wordpress",
         validate: validateWPCoreDir,
-        hint: "wp-content stays outside the core directory.",
+        hint: "wp-content stays outside this core directory.",
       }),
       cleanState: confirm("Remove default content when installing a new WordPress site?", {
         hint: "Only applies to a fresh installation; reruns preserve existing content.",
@@ -110,13 +110,16 @@ export function createSettingsSchema(rootDir) {
       debug: confirm("Enable WordPress debugging?", {
         hint: "Enables WP_DEBUG and the related debugging settings below.",
       }),
-      debugScript: confirm("Enable script debugging?", { enabled: ({ wordpress }) => wordpress.debug }),
+      debugScript: confirm("Enable script debugging?", {
+        hint: "Enables SCRIPT_DEBUG for WordPress scripts and stylesheets.",
+        enabled: ({ wordpress }) => wordpress.debug,
+      }),
       debugDisplayHidden: confirm("Hide the frontend debugging display?", {
         hint: "Prevents errors and notices from appearing on the public site.",
         enabled: ({ wordpress }) => wordpress.debug,
       }),
       debugLog: confirm("Enable debug logging?", {
-        hint: "Writes errors to the log path below.",
+        hint: "If yes, the path will be prompted next.",
         enabled: ({ wordpress }) => wordpress.debug,
       }),
       debugLogPath: input("Debug Log Path:", {
@@ -151,7 +154,7 @@ export function createSettingsSchema(rootDir) {
       }),
     },
     devConfig: {
-      docs: confirm("Add wp-content/docs directory with TODO.md file?", {
+      docs: confirm("Add a `wp-content/docs` directory with a `TODO.md` file?", {
         hint: "Creates wp-content/docs/TODO.md for project-specific development notes.",
       }),
     },

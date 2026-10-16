@@ -8,6 +8,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
   const line = (value = "") => stdout.write(`${value}\n`);
   return {
     info: line,
+    success: (message) => line(c.green(message)),
     warn: (message) => line(c.yellow(message)),
     error: (message) => stderr.write(`${c.red(message)}\n`),
     heading: (message) => line(`\n${c.bgBlue.bold(` ${message} `)}\n`),
