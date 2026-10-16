@@ -79,11 +79,11 @@ export async function saveConfig(rootDir, settings, { restart = false } = {}) {
       .map((name) => name.match(/^ddev-local-wp-setup-config(?:_(\d+))?\.bak$/))
       .filter(Boolean);
     const number = Math.max(-1, ...matches.map((match) => Number(match[1] ?? 0))) + 1;
-
     const backup = await assertProjectPath(
       rootDir,
       `ddev-local-wp-setup-config_${String(number).padStart(3, "0")}.bak`,
     );
+
     await copyFile(filename, backup, constants.COPYFILE_EXCL);
   }
 

@@ -27,7 +27,6 @@ export function generateNamespaceFromName(name) {
 export function generateProjectNameFromDir(rootDir) {
   const directoryName = path.basename(rootDir).replace(/\..*$/, "");
   const projectSlug = generateSlugFromName(directoryName).replace(/^-+/, "");
-
   return generateTitleFromSlug(projectSlug);
 }
 

@@ -4,9 +4,7 @@ import { validateExecInstaller, validateField } from "../config/validation.js";
 import { configFilename, parseConfig, readConfigText } from "../config/store.js";
 
 const require = createRequire(import.meta.url);
-
 const closedReadlineGuard = Symbol("closedReadlineGuard");
-
 const sectionLabels = {
   ddev: "DDEV",
   wordpress: "WordPress",
