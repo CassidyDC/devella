@@ -30,7 +30,7 @@ export async function runInstaller({ rootDir, reporter, prompt, runCommand = exe
   await prepareComposer(context);
   await setupDdev(context);
   const outcome = await setupWordPress(context);
-  reporter.info("WordPress setup complete.");
+  reporter.success("WordPress setup complete.");
   return outcome;
 }
 

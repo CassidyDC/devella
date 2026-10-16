@@ -19,7 +19,7 @@ test("YAML edits preserve user configuration and are byte-stable on reruns", asy
       assert.equal(updateDdevConfig(updated, settings), updated);
       assert.equal(config.use_dns_when_possible, false);
       assert.equal(
-        config.hooks["post-start"].filter((hook) => hook.exec?.startsWith("wp config set WP_DEBUG ")).length,
+        config.hooks["post-start"].filter((hook) => hook.exec?.startsWith("wp --color config set WP_DEBUG ")).length,
         1,
       );
       assert.ok(config.hooks["post-start"].some((hook) => hook.exec?.includes("user-hook")));
@@ -49,7 +49,7 @@ test("disabled logging replaces stale hooks and DNS can be changed in both direc
   const config = parse(updated);
   assert.equal(config.use_dns_when_possible, true);
   assert.equal(
-    config.hooks["post-start"].filter((hook) => hook.exec?.startsWith("wp config set WP_DEBUG_LOG ")).length,
+    config.hooks["post-start"].filter((hook) => hook.exec?.startsWith("wp --color config set WP_DEBUG_LOG ")).length,
     1,
   );
   assert.equal(wordpressConstants(settings).WP_DEBUG_LOG, "false");
@@ -63,8 +63,10 @@ test("generated hooks pass PHP expressions literally through the container shell
     "/tmp/project",
   );
   const config = parse(updateDdevConfig("{}\n", settings));
-  const hook = config.hooks["post-start"].find(({ exec }) => exec.startsWith("wp config set WP_DEBUG_LOG ")).exec;
-  const { stdout } = await promisify(execFile)("sh", ["-c", `wp() { printf '%s' "$4"; }; ${hook}`]);
+  const hook = config.hooks["post-start"].find(({ exec }) =>
+    exec.startsWith("wp --color config set WP_DEBUG_LOG "),
+  ).exec;
+  const { stdout } = await promisify(execFile)("sh", ["-c", `wp() { printf '%s' "$5"; }; ${hook}`]);
   assert.equal(stdout, wordpressConstants(settings).WP_DEBUG_LOG);
 });
 

@@ -61,7 +61,7 @@ export async function setupWordPress({ rootDir, settings, runCommand, reporter }
       for (const plugin of plugins)
         if (["hello", "akismet"].includes(plugin.name)) await wp(["plugin", "delete", plugin.name]);
     }
-  } else reporter.info("WordPress is already installed; preserving content and administrator credentials.");
+  } else reporter.dim("WordPress is already installed; preserving content and administrator credentials.");
 
   await updateOption("blogname", options.siteTitle);
   await updateOption("blogdescription", options.siteTagline);

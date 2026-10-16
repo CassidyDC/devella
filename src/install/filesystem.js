@@ -51,10 +51,10 @@ export async function prepareFilesystem(context) {
     await mkdir(path.dirname(filename), { recursive: true });
     try {
       await writeFile(filename, content, { flag: "wx" });
-      reporter.info(`Created ${relative}.`);
+      reporter.success(`Created ${relative}.`);
     } catch (error) {
       if (error.code !== "EEXIST") throw error;
-      reporter.info(`Preserved existing ${relative}.`);
+      reporter.dim(`Preserved existing ${relative}.`);
     }
   }
 }

@@ -41,7 +41,7 @@ export function savedSettings(overrides = {}) {
 export function recordingReporter() {
   const events = [];
   const reporter = Object.fromEntries(
-    ["info", "warn", "error", "heading", "clear", "header", "help", "debug"].map((name) => [
+    ["info", "success", "warn", "dim", "error", "heading", "clear", "header", "help", "debug"].map((name) => [
       name,
       (...args) => events.push([name, ...args]),
     ]),

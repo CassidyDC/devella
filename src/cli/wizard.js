@@ -140,7 +140,7 @@ export async function runWizard({ rootDir, prompt, reporter }) {
   }
   const settings = await collectSettings(rootDir, existing, { prompt, reporter });
   reporter.info("");
-  reporter.success("All settings have been collected. The administrator password will not be saved.");
+  reporter.warn("All settings have been collected. The administrator password will not be saved.");
   reporter.info("");
   const { answer } = await prompt({
     type: "input",

@@ -51,11 +51,11 @@ export function updateDdevConfig(content, settings) {
   if (!isSeq(postStart)) throw new Error("DDEV post-start hooks must be a YAML sequence.");
   postStart.items = postStart.items.filter((node) => {
     const command = isMap(node) ? node.get("exec") : null;
-    const key = typeof command === "string" ? command.match(/^wp config set ([A-Z_]+)\s/)?.[1] : null;
+    const key = typeof command === "string" ? command.match(/^wp (?:--color )?config set ([A-Z_]+)\s/)?.[1] : null;
     return !key || !Object.hasOwn(constants, key);
   });
   for (const [key, value] of Object.entries(constants))
-    postStart.add(document.createNode({ exec: `wp config set ${key} ${shellQuote(value)} --raw` }));
+    postStart.add(document.createNode({ exec: `wp --color config set ${key} ${shellQuote(value)} --raw` }));
   let uploads = document.get("upload_dirs", true);
   if (!uploads) {
     document.set("upload_dirs", document.createNode([]));

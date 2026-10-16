@@ -77,7 +77,7 @@ export async function inspectProject(context) {
 export async function preflight(context) {
   const facts = await inspectProject(context);
   const { rootDir, runCommand, reporter } = context;
-  reporter.heading("Checking Installation Requirements");
+  reporter.warn("Checking Installation Requirements");
   for (const command of ["ddev", "composer", "docker"]) {
     await runCommand(command, ["--version"], { cwd: rootDir, output: "capture" });
   }
