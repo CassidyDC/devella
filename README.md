@@ -1,40 +1,73 @@
 # DDEV Local WP Setup
 
-A simple CLI for setting up a local WordPress development server with DDEV.
+An interactive JavaScript CLI for creating a local WordPress development site with DDEV. WordPress core lives in its own directory, while themes, plugins, and uploads stay in the project's `wp-content` directory.
 
-> [!NOTE]
-> The following software must be installed for the `ddev-local-wp-setup` package to work:
->
-> 1. [DDEV](https://ddev.com/) - Install with homebrew: `brew install ddev/ddev/ddev`.
-> 2. [Orbstack](https://orbstack.dev/) (or another Docker provider) - Install with homebrew: `brew install orbstack docker`.
-> 3. [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-> 4. [Composer](https://getcomposer.org/download/)
+## Requirements
 
-## Quick Start
+- Node.js 22.13+ within Node 22, or Node.js 24+.
+- [DDEV](https://ddev.com/) and a running Docker provider, such as OrbStack or Docker Desktop.
+- [Composer](https://getcomposer.org/) with PHP 8.4+ available on your host.
 
-1. Clone this [repo](https://github.com/cassidydc/ddev-local-wp-setup) to your (preferably empty) project's root directory with the command: **`git clone git@github.com:cassidydc/ddev-local-wp-setup.git`**
-2. Customize the script's configuration settings at: _ddev-local-wp-setup/config.sh_
-3. Run the installation script in your project's root directory with the command: **`ddev-local-wp-setup/install.sh`**
-4. Delete the _ddev-local-wp-setup_ directory after successfully running the installation script
+## Quick start
 
-## Features
+Run the CLI from the directory where you want the project installed:
 
-> [!NOTE]
-> The optional features can be turned on/off in the `config.sh` file.
+```sh
+npm exec --package=ddev-local-wp-setup -- ddev-wp install
+```
 
-This script automatically sets up the following:
+Alternatively, install the package globally and run `ddev-wp install`.
 
-- Configures and starts the [DDEV](https://ddev.com/) Docker containers with a WordPress development server.
-- Installs a clean WordPress site with the default pages, posts, comments, plugins, themes, welcome panel and dashboard widgets removed (with the exception of the latest official default theme as a fallback).
-- (Optional) Downloads and installs the [CassidyDC Toolset Dev WP Dev WP](https://github.com/CassidyDC/toolset-dev-wp).
-- (Optional) Downloads, installs, and activates the [CassidyDC WP Starter Block Theme](https://github.com/CassidyDC/cassidydc-wp-starter-block-theme).
-- (Optional) Installs the [All-in-One WP Migration plugin](https://wordpress.org/plugins/all-in-one-wp-migration/).
-- (Optional) Installs the [All-in-One WP Migration Unlimited Extension plugin](https://servmask.com/products/unlimited-extension).
-  - _The setup for this plugin is set to `false` by default since it's a paid plugin and is installed from your local machine. If you have this plugin, you can turn the installation on in the `config.sh` file by changing `INSTALL_WP_PLUGIN_AIOMUE_LOCAL` to `true` and updating the path to your zip file._
-- (Optional) Installs the [Query Monitor plugin](https://wordpress.org/plugins/query-monitor/).
-- (Optional) Installs the files needed to connect the DDEV Docker containers with the [Spatie Ray](https://myray.app/) desktop app (used for simple debugging when Xdebug is overkill).
-- (Optional) Initializes a local project Git repo in the `wp-content` directory
+To use this checkout before publishing, install its dependencies with `npm ci`, then run its executable from your project's directory:
 
-## Found an Issue?
+```sh
+node /absolute/path/to/ddev-local-wp-setup/bin/ddev-wp.js install
+```
 
-If you come across any issues, please report them in the [GitHub Repo](https://github.com/cassidydc/ddev-local-wp-setup/issues).
+The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. Type `run` at the final confirmation to check requirements and begin installation. Type `exit` at either exit prompt to cancel without changing the project.
+
+## Supported setup
+
+- Configure and start DDEV with a WordPress site.
+- Install WordPress core through Composer, outside `wp-content`.
+- Configure debugging, environment and development modes, the site title and tagline, and optional post-name permalinks.
+- Optionally remove default content from a newly installed site and create a static homepage.
+- Optionally install an official default theme and All-in-One WP Migration.
+- Optionally create custom theme and plugin directories, documentation directories, and Spatie Ray connection files.
+
+Git initialization, development toolsets, starter theme/plugin files, and VS Code files are deferred. The wizard does not offer inactive features. Their existing saved configuration keys are retained when continuing with an existing config, but do not trigger installation work.
+
+## Saved settings and reruns
+
+Settings are saved to `ddev-local-wp-setup-config.json` after confirmation and successful preflight checks. The administrator password is never saved and is requested again on each run; credentials are applied only when installing a new site.
+
+When a saved configuration exists, choose to continue with it or start from scratch. Continuing validates known values and prompts for missing or invalid answers. Starting from scratch saves a numbered `.bak` copy when installation begins.
+
+Reruns skip WordPress core installation and destructive content cleanup on existing sites. They preserve an existing active theme and static front page, reuse a homepage left by a partial run, and avoid duplicate generated hooks and upload directory entries. Supported settings such as the title, tagline, debugging, and requested plugin activation are still applied.
+
+Existing generated files are preserved. Incompatible core paths, custom bootstrap files, invalid configuration, and DDEV names registered to other directories stop installation with an explanation. External operations are not automatically rolled back after a failure.
+
+## Commands and development
+
+```sh
+ddev-wp --help
+ddev-wp --version
+ddev-wp install --no-header --no-clear
+```
+
+From this checkout:
+
+```sh
+npm ci
+npm test
+npm run lint:scripts
+npm run lint:docs
+npm run check
+npm run test:package
+```
+
+Tests use temporary projects and simulated external commands, so they do not require Docker. The package check packs and installs the CLI in a temporary consumer project; it may access the npm registry for runtime dependencies. CI runs these checks on Node 22.13 and Node 24.
+
+See the [CLI reference](docs/cli.md), [architecture](docs/architecture.md), and [refactor plan](docs/plans/refactor-plan.md). Historical shell scripts and early CLI design notes are kept in [the archive](docs/archive/README.md).
+
+Report issues in the [GitHub repository](https://github.com/CassidyDC/ddev-local-wp-setup/issues).

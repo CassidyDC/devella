@@ -5,12 +5,15 @@
 ### Added
 
 - Added automated CLI and configuration regression tests with Node's built-in test runner.
+- Added isolated npm package verification and CI checks on Node 22.13 and Node 24.
 
 ### Changed
 
 - Reorganized the CLI into explicit command, configuration, installation, template, and system modules using native JavaScript ESM.
 - Replaced shared mutable installation settings and circular helper imports with explicit inputs and a shared subprocess runner.
 - Hide unfinished Git, toolset, and VS Code options while preserving their saved configuration keys.
+- Updated the package executable, declared supported Node versions, and removed the unused spinner dependency.
+- Replaced shell-era usage instructions with current CLI and architecture documentation, and archived historical material.
 
 ### Fixed
 

@@ -2,7 +2,7 @@
   "name": "ddev-local-wp-setup",
   "displayName": "DDEV Local WP Setup",
   "version": "1.0.0",
-  "description": "Sets up a local WordPress development server with DDEV (including optional code linting and formatting config files)",
+  "description": "Interactive CLI for setting up a local WordPress development server with DDEV",
   "author": {
     "name": "CassidyDC",
     "email": "hello@cassidydc.com",
@@ -17,6 +17,9 @@
   ],
   "main": "src/cli/run.js",
   "type": "module",
+  "engines": {
+    "node": "^22.13.0 || >=24.0.0"
+  },
   "homepage": "https://github.com/CassidyDC/ddev-local-wp-setup/blob/main/README.md",
   "repository": {
     "type": "git",
@@ -51,11 +54,12 @@
   },
   "scripts": {
     "test": "node --test",
+    "test:package": "node scripts/check-package.js",
     "check": "npx prettier . --check",
     "format": "npx prettier . --write",
     "lint:docs": "npx markdownlint-cli2 \"**/*.md\"",
     "lint:docs:fix": "npx markdownlint-cli2 \"**/*.md\" --fix",
-    "lint:scripts": "npx eslint",
+    "lint:scripts": "eslint . --max-warnings 0",
     "lint:scripts:fix": "npx eslint --fix"
   },
   "allowScripts": {
