@@ -1,6 +1,5 @@
 /**
  * DDEV Setup Tests
- *
  * @file Verify DDEV YAML updates, hooks, and project recovery behavior.
  */
 

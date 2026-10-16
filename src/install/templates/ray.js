@@ -1,6 +1,5 @@
 /**
  * Ray Templates
- *
  * @file Render DDEV configuration for the Spatie Ray development tool.
  */
 

@@ -1,6 +1,5 @@
 /**
  * Terminal Reporter
- *
  * @file Render CLI messages, headings, help, and diagnostics to terminal streams.
  */
 

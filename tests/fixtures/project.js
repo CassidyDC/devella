@@ -1,6 +1,5 @@
 /**
  * Project Test Fixtures
- *
  * @file Create temporary projects and reusable installer test dependencies.
  */
 

@@ -1,6 +1,5 @@
 /**
  * Installation Wizard
- *
  * @file Interactive prompts, saved-answer recovery, and cancellation handling for installation.
  */
 

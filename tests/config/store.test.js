@@ -1,6 +1,5 @@
 /**
  * Configuration Store Tests
- *
  * @file Verify saved settings, backups, and malformed configuration handling.
  */
 

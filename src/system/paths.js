@@ -1,6 +1,5 @@
 /**
  * Project Paths
- *
  * @file Safe normalization and validation of paths within a project directory.
  */
 

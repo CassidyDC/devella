@@ -1,6 +1,5 @@
 /**
  * CLI Arguments
- *
  * @file Parse command-line commands, flags, aliases, and input errors.
  */
 

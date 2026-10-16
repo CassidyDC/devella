@@ -2,7 +2,6 @@
 
 /**
  * DDEV WordPress CLI Entry Point
- *
  * @file Start the DDEV WordPress setup command-line interface.
  */
 

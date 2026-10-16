@@ -1,6 +1,5 @@
 /**
  * Installer Tests
- *
  * @file Verify complete installation, restart recovery, and failure handling.
  */
 

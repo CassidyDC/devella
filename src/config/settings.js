@@ -1,6 +1,5 @@
 /**
  * Settings Schema
- *
  * @file Define ordered installation wizard sections, fields, defaults, and hints.
  */
 

@@ -1,6 +1,5 @@
 /**
  * Composer Setup
- *
  * @file Prepare project Composer settings and dependencies for WordPress.
  */
 

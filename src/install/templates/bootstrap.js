@@ -1,6 +1,5 @@
 /**
  * Bootstrap Templates
- *
  * @file Render initial WordPress bootstrap files and escaped PHP literals.
  */
 

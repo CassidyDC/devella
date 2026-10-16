@@ -1,6 +1,5 @@
 /**
  * Settings Normalization
- *
  * @file Normalize and validate collected settings before installation.
  */
 

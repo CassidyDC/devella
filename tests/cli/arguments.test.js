@@ -1,6 +1,5 @@
 /**
  * CLI Argument Tests
- *
  * @file Verify CLI argument parsing, dispatch, output flags, and cancellation.
  */
 

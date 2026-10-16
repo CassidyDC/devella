@@ -1,6 +1,5 @@
 /**
  * WordPress Setup Tests
- *
  * @file Verify WordPress configuration, fresh installs, and development tool setup.
  */
 

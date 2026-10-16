@@ -1,6 +1,5 @@
 /**
  * WordPress Setup
- *
  * @file Configure WordPress settings and install selected development tools.
  */
 

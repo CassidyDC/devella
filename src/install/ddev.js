@@ -1,6 +1,5 @@
 /**
  * DDEV Setup
- *
  * @file Update DDEV configuration and configure WordPress constants and hooks.
  */
 

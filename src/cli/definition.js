@@ -1,6 +1,5 @@
 /**
  * CLI Definition
- *
  * @file Available CLI commands, aliases, flags, and help descriptions.
  */
 

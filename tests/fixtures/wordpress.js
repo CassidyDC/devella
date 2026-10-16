@@ -1,6 +1,5 @@
 /**
  * WordPress Test Fixture
- *
  * @file Simulate WP-CLI commands and mutable WordPress installation state.
  */
 

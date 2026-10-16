@@ -1,6 +1,5 @@
 /**
  * Configuration Store
- *
  * @file Read, validate, and safely save resumable installation settings.
  */
 

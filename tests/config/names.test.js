@@ -1,6 +1,5 @@
 /**
  * Project Name Tests
- *
  * @file Verify stable project slugs, titles, and PHP namespaces.
  */
 

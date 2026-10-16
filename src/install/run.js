@@ -1,6 +1,5 @@
 /**
  * Installer Runner
- *
  * @file Coordinate wizard answers, project preparation, DDEV, Composer, and WordPress setup.
  */
 

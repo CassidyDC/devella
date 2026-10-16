@@ -1,6 +1,5 @@
 /**
  * Settings Tests
- *
  * @file Verify conditional settings collection and normalization behavior.
  */
 

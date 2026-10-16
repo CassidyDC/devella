@@ -1,6 +1,5 @@
 /**
  * Package Validation
- *
  * @file Validate the packed npm artifact and its executable contents.
  */
 

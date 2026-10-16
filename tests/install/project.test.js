@@ -1,6 +1,5 @@
 /**
  * Project Preparation Tests
- *
  * @file Verify preflight checks, filesystem setup, and generated project files.
  */
 

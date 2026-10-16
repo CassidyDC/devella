@@ -1,6 +1,5 @@
 /**
  * Validation Tests
- *
  * @file Verify input validation for slugs, credentials, and WordPress paths.
  */
 

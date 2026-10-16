@@ -1,6 +1,5 @@
 /**
  * Composer Template
- *
  * @file Render the initial Composer manifest for a WordPress project.
  */
 

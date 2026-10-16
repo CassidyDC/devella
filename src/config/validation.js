@@ -1,6 +1,5 @@
 /**
  * Settings Validation
- *
  * @file Validate installation settings and report field-specific errors.
  */
 

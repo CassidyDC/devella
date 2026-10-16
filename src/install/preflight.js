@@ -1,6 +1,5 @@
 /**
  * Installation Preflight
- *
  * @file Check project dependencies, paths, and existing files before installation.
  */
 

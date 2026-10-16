@@ -1,6 +1,5 @@
 /**
  * CLI Smoke Tests
- *
  * @file Exercise the executable through help, version, error, and import flows.
  */
 
