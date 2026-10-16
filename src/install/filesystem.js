@@ -6,6 +6,7 @@ import { rayDockerfile, rayIni, renderRay } from "./templates/ray.js";
 
 /**
  * Build the map of generated project file paths and contents.
+ *
  * @param {import("./run.js").InstallContext} context Project root and normalized settings.
  * @returns {Record<string, string>} Relative file paths mapped to their initial contents.
  */
@@ -26,6 +27,7 @@ export function projectFiles({ rootDir, settings }) {
 
 /**
  * List directories that must exist for the selected project settings.
+ *
  * @param {import("./run.js").InstallContext} context Normalized WordPress, theme, and plugin settings.
  * @returns {string[]} Project-relative directories to create recursively.
  */
@@ -42,6 +44,7 @@ export function projectDirectories({ settings }) {
 
 /**
  * Read a file as UTF-8, returning null when it is absent.
+ *
  * @param {string} filename Absolute file path to read.
  * @returns {Promise<string|null>} File contents, or null when the path does not exist.
  */
@@ -56,6 +59,7 @@ export async function readOptionalFile(filename) {
 
 /**
  * Create required project directories and files without overwriting existing files.
+ *
  * @param {import("./run.js").InstallContext} context Project root, settings, and reporter.
  * @returns {Promise<void>} Resolves after all missing directories and files are prepared.
  * @throws {Error} If a path is unsafe or a filesystem operation fails.

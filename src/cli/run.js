@@ -6,6 +6,7 @@ import { CancelledError } from "./wizard.js";
 /**
  * Run the CLI action and translate user cancellation or failures into exit codes.
  * Importing this module never parses arguments or starts installation.
+ *
  * @param {string[]} argv Arguments following the executable name.
  * @param {object} [dependencies={}] Injectable runtime dependencies for the CLI.
  * @returns {Promise<number>} Process status code for the requested action.

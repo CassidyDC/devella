@@ -1,5 +1,6 @@
 /**
  * Create a stateful WP-CLI simulation; unknown commands fail instead of silently passing.
+ *
  * @param {object} [overrides={}] Initial state values that replace fixture defaults.
  * @returns {{state: object, handle: (args: string[]) => object}} Mutable simulation state and command handler.
  */
@@ -21,6 +22,7 @@ export function wordpressSimulation(overrides = {}) {
   };
   /**
    * Handle a simulated DDEV or WP-CLI invocation and update fixture state.
+   *
    * @param {string[]} args Command and arguments from the process runner.
    * @returns {object} Simulated stdout or exit status for the command.
    */
@@ -91,6 +93,7 @@ export function wordpressSimulation(overrides = {}) {
 
 /**
  * Fail the simulation when a command does not begin with the WP-CLI executable.
+ *
  * @param {string[]} args Command arguments being checked.
  * @returns {void}
  * @throws {Error} If the invocation is not a WP-CLI command.

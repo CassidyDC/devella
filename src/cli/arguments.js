@@ -2,6 +2,7 @@ import { commands, flags } from "./definition.js";
 
 /**
  * Parse user arguments, resolving command and flag aliases from the CLI definition.
+ *
  * @param {string[]} argv Arguments following the executable name.
  * @returns {{command: string|null, flags: Set<string>, errors: string[]}} Parsed action flags and input errors.
  */

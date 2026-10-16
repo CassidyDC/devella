@@ -2,6 +2,7 @@ import { projectRelativePath } from "../system/paths.js";
 
 /**
  * Require a non-empty string.
+ *
  * @param {*} value Candidate field value.
  * @returns {true|string} True when non-empty, otherwise a validation message.
  */
@@ -10,6 +11,7 @@ export const validateString = (value) =>
 
 /**
  * Require a lowercase domain-safe slug with single internal dashes.
+ *
  * @param {*} value Candidate project or directory slug.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -19,6 +21,7 @@ export const validateSlug = (value) =>
 
 /**
  * Validate an email address for the initial WordPress administrator.
+ *
  * @param {*} value Candidate email address.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -27,6 +30,7 @@ export const validateWPAdminEmail = (value) =>
 
 /**
  * Require the minimum password length accepted by the installer.
+ *
  * @param {*} value Candidate administrator password.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -35,6 +39,7 @@ export const validateWPAdminPassword = (value) =>
 
 /**
  * Validate the characters and length of a WordPress username.
+ *
  * @param {*} value Candidate administrator username.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -44,6 +49,7 @@ export const validateWPAdminUsername = (value) =>
 
 /**
  * Validate a PHP namespace beginning with a capitalized component.
+ *
  * @param {*} value Candidate namespace.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -55,6 +61,7 @@ export const validateNamespace = (value) =>
 
 /**
  * Validate a lowercase PHP function prefix ending in an underscore.
+ *
  * @param {*} value Candidate function prefix.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -64,6 +71,7 @@ export const validateFunctionPrefix = (value) =>
 
 /**
  * Accept only the wizard's run and exit commands.
+ *
  * @param {*} value Candidate confirmation response.
  * @returns {true|string} True when recognized, otherwise a usage message.
  */
@@ -72,6 +80,7 @@ export const validateExecInstaller = (value) =>
 
 /**
  * Validate a WordPress core directory located outside reserved project paths.
+ *
  * @param {*} value Candidate core directory path.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -89,6 +98,7 @@ export function validateWPCoreDir(value) {
 
 /**
  * Validate a project-relative log path ending in `.log`.
+ *
  * @param {*} value Candidate debug log path.
  * @returns {true|string} True when valid, otherwise a validation message.
  */
@@ -105,6 +115,7 @@ export function validateLogPath(value) {
 
 /**
  * Use the same checks for saved settings and interactive answers.
+ *
  * @param {object} field Prompt metadata containing type, choices, and an optional validator.
  * @param {*} value Candidate saved or prompted value.
  * @returns {true|string} True when valid, otherwise the first validation message.

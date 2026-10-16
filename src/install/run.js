@@ -20,6 +20,7 @@ import { setupWordPress } from "./wordpress.js";
 
 /**
  * Run the wizard, preflight checks, and each installation stage in order.
+ *
  * @param {{rootDir: string, reporter: object, prompt?: (options: object) => Promise<object>, runCommand?: typeof execute}} options Project root, reporter, and optional prompt and process adapters.
  * @returns {Promise<object>} WordPress installation outcome, including whether this was a fresh install.
  * @throws {CancelledError|Error} If the wizard is cancelled or any installation stage fails.
@@ -43,6 +44,7 @@ export async function runInstaller({ rootDir, reporter, prompt, runCommand = exe
 
 /**
  * Keep prompting until Docker is available or the user cancels.
+ *
  * @param {{rootDir: string, reporter: object, prompt: (options: object) => Promise<object>, runCommand: typeof execute}} options Project root, reporter, prompt adapter, and subprocess runner.
  * @returns {Promise<void>} Resolves once the Docker provider responds successfully.
  * @throws {CancelledError} If interrupted or explicitly cancelled by the user.

@@ -1,5 +1,6 @@
 /**
  * Render the initial Composer manifest for the WordPress project.
+ *
  * @param {string} coreDir Project-relative WordPress installation directory.
  * @returns {string} Pretty-printed Composer JSON ending in a newline.
  */

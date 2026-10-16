@@ -13,6 +13,7 @@ import { commandRunner, recordingReporter, savedSettings, temporaryProject } fro
 
 /**
  * Create a standard installation context rooted in a temporary project.
+ *
  * @param {import("node:test").TestContext} t Active test context for cleanup registration.
  * @param {object} [overrides] Values to override in the standard saved settings.
  * @returns {Promise<object>} Test context with temporary root, normalized settings, runner, and reporter.

@@ -7,6 +7,7 @@ import { wordpressSimulation } from "../fixtures/wordpress.js";
 
 /**
  * Combine a WP-CLI simulation with the installer dependencies used by tests.
+ *
  * @param {{state: object, handle: Function}} simulation Simulated WordPress state and command handler.
  * @returns {object} WordPress setup context with reporter and command runner.
  */

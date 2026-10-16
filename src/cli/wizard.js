@@ -18,6 +18,7 @@ const sectionLabels = {
 // On Node 24+, readline may close itself on Ctrl+C before Enquirer runs its cleanup handler.
 /**
  * Guard Enquirer's readline cleanup methods against an already-closed interface.
+ *
  * @returns {void} Installs the guard once on Enquirer's keypress listener.
  */
 function guardEnquirerReadlineCleanup() {
@@ -27,6 +28,7 @@ function guardEnquirerReadlineCleanup() {
   const listen = keypress.listen;
   /**
    * Apply the closed-readline guard before forwarding each keypress.
+   *
    * @param {object} options Enquirer keypress listener options.
    * @param {Function} onKeypress Original keypress callback.
    * @returns {Function} Patched listener that protects readline cleanup.
@@ -53,11 +55,13 @@ function guardEnquirerReadlineCleanup() {
 
 /**
  * Represent an intentional wizard exit and its process status.
+ *
  * @extends Error
  */
 export class CancelledError extends Error {
   /**
    * Create a cancellation error with the requested process exit code.
+   *
    * @param {number} [exitCode=0] Status to return when the user cancels.
    */
   constructor(exitCode = 0) {
@@ -70,6 +74,7 @@ export class CancelledError extends Error {
 /**
  * Create an Enquirer prompt adapter that converts Ctrl+C into a cancellation error.
  * Enquirer can reject without an Error instance when the user presses Ctrl+C.
+ *
  * @returns {Promise<(options: object) => Promise<object>>} Prompt function backed by Enquirer.
  */
 export async function createPrompt() {
@@ -88,6 +93,7 @@ export async function createPrompt() {
 
 /**
  * Collect and validate enabled wizard fields while retaining unknown saved keys.
+ *
  * @param {string} rootDir Project directory used to derive prompt defaults.
  * @param {object} existing Previously saved wizard settings.
  * @param {{prompt: (options: object) => Promise<object>, reporter: object}} adapters Prompt and output adapters.
@@ -145,6 +151,7 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
 
 /**
  * Show the setup warning, collect answers, and confirm whether to run.
+ *
  * @param {{rootDir: string, prompt: (options: object) => Promise<object>, reporter: object}} options Wizard dependencies.
  * @returns {Promise<{settings: object, restart: boolean}>} Collected settings and config-restart choice.
  * @throws {CancelledError|Error} If the user exits or the saved config cannot be read.

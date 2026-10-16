@@ -8,6 +8,7 @@ export const rayIni =
 
 /**
  * Render the Spatie Ray configuration for the given host project directory.
+ *
  * @param {string} rootDir Absolute host path mounted into the DDEV container.
  * @returns {string} PHP array source for `ray.php`.
  */

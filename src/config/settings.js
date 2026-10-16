@@ -18,6 +18,7 @@ import {
 
 /**
  * Create an input prompt definition with optional field metadata.
+ *
  * @param {string} message Prompt label.
  * @param {object} [options={}] Initial value, validation, hint, and conditional metadata.
  * @returns {object} Enquirer input prompt definition.
@@ -26,6 +27,7 @@ const input = (message, options = {}) => ({ type: "input", message, ...options }
 
 /**
  * Create a yes/no prompt definition that defaults to yes.
+ *
  * @param {string} message Prompt label.
  * @param {object} [options={}] Additional prompt metadata, including an optional default override.
  * @returns {object} Enquirer confirmation prompt definition.
@@ -34,6 +36,7 @@ const confirm = (message, options = {}) => ({ type: "confirm", message, initial:
 
 /**
  * Create a selection prompt definition that defaults to its first choice.
+ *
  * @param {string} message Prompt label.
  * @param {Array<string|object>} choices Available prompt choices.
  * @returns {object} Enquirer selection prompt definition.
@@ -43,12 +46,14 @@ const select = (message, choices) => ({ type: "select", message, choices, initia
 /**
  * Build the declarative wizard fields for a project directory.
  * The schema contains plain metadata and does not read environment state or render prompts.
+ *
  * @param {string} rootDir Project directory used to derive default names and paths.
  * @returns {object} Ordered wizard sections and their field definitions.
  */
 export function createSettingsSchema(rootDir) {
   /**
    * Build the conditional fields shared by custom theme and plugin settings.
+   *
    * @param {"theme"|"plugin"} kind Custom directory type to describe.
    * @returns {object} Prompt definitions for custom name, slug, namespace, and prefix.
    */

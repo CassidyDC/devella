@@ -8,6 +8,7 @@ export const configFilename = "ddev-local-wp-setup-config.json";
 
 /**
  * Read the saved wizard configuration, returning null when it does not exist.
+ *
  * @param {string} rootDir Absolute project directory containing the config file.
  * @returns {Promise<string|null>} Config JSON text, or null when no config exists.
  */
@@ -23,6 +24,7 @@ export async function readConfigText(rootDir) {
 
 /**
  * Parse and validate the saved wizard configuration object.
+ *
  * @param {string} text JSON text read from the config file.
  * @returns {object} Parsed config with object-valued setting sections.
  * @throws {Error} If the JSON or any known section has an invalid shape.
@@ -49,6 +51,7 @@ export function parseConfig(text) {
 
 /**
  * Save raw wizard settings, retaining deferred keys but never the administrator password.
+ *
  * @param {string} rootDir Absolute project directory in which to save the config.
  * @param {object} settings Raw settings collected by the wizard.
  * @param {{restart?: boolean}} [options={}] Whether to back up an existing config before replacing it.

@@ -19,11 +19,13 @@ import { spawn } from "node:child_process";
 
 /**
  * Represent a subprocess launch failure, interruption, or nonzero exit.
+ *
  * @extends Error
  */
 export class CommandError extends Error {
   /**
    * Create a command error and retain captured subprocess details.
+   *
    * @param {string} command Executable name that was run.
    * @param {CommandResult} result Captured output, exit code, and signal.
    * @param {Error} [cause] Underlying process launch error, if spawning failed.

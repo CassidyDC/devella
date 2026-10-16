@@ -17,6 +17,7 @@ import { projectRelativePath } from "../system/paths.js";
 
 /**
  * Project enabled, validated fields into execution state without mutating saved input.
+ *
  * @param {object} raw Raw wizard or saved configuration values.
  * @param {string} rootDir Project directory used to normalize relative paths.
  * @returns {InstallSettings} Validated settings with inactive options removed and paths normalized.

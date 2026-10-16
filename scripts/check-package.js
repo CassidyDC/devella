@@ -14,6 +14,7 @@ assert.ok(npmCli, "Run this check with npm run test:package.");
 
 /**
  * Run the active npm CLI with the given arguments in a working directory.
+ *
  * @param {string[]} args Arguments to pass to npm.
  * @param {string} cwd Directory in which npm should run.
  * @returns {Promise<{stdout: string, stderr: string}>} Captured npm output.
