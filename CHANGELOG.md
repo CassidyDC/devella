@@ -6,6 +6,18 @@
 
 - Added automated CLI and configuration regression tests with Node's built-in test runner.
 
+### Changed
+
+- Reorganized the CLI into explicit command, configuration, installation, template, and system modules using native JavaScript ESM.
+- Replaced shared mutable installation settings and circular helper imports with explicit inputs and a shared subprocess runner.
+- Hide unfinished Git, toolset, and VS Code options while preserving their saved configuration keys.
+
+### Fixed
+
+- Corrected informational flag precedence, header suppression, and error exit codes.
+- Validate reused settings and disable debug paths consistently when logging is off.
+- Preserve existing WordPress content and credentials on reruns and avoid duplicate setup records and hooks.
+
 ## [2.4.0] - 2026-07-25
 
 ### Changed

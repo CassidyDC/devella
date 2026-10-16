@@ -1,10 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  generateNamespaceFromName,
-  generateSlugFromName,
-  generateTitleFromSlug,
-} from "../../src/js/modules/utils/helpers/generate.js";
+import { generateNamespaceFromName, generateSlugFromName, generateTitleFromSlug } from "../../src/config/names.js";
 
 test("project names produce stable slugs, titles, and PHP namespaces", () => {
   assert.equal(generateSlugFromName("Cassidy's New Site!"), "cassidys-new-site");

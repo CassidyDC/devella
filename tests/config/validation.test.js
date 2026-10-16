@@ -6,7 +6,7 @@ import {
   validateWPAdminPassword,
   validateWPAdminUsername,
   validateWPCoreDir,
-} from "../../src/js/modules/utils/helpers/validate.js";
+} from "../../src/config/validation.js";
 
 test("slugs reject spaces and non-domain characters", () => {
   assert.equal(validateSlug("my-project"), true);

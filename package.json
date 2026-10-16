@@ -9,12 +9,13 @@
     "url": "https://cassidydc.com"
   },
   "bin": {
-    "ddev-wp": "./src/js/init.js"
+    "ddev-wp": "./bin/ddev-wp.js"
   },
   "files": [
+    "bin",
     "src"
   ],
-  "main": "src/js/init.js",
+  "main": "src/cli/run.js",
   "type": "module",
   "homepage": "https://github.com/CassidyDC/ddev-local-wp-setup/blob/main/README.md",
   "repository": {
@@ -36,7 +37,7 @@
     "ansi-colors": "^4.1.3",
     "enquirer": "^2.4.1",
     "string-width": "^8.3.0",
-    "yocto-spinner": "^1.2.2"
+    "yaml": "^2.9.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

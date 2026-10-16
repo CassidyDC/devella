@@ -1,0 +1,18 @@
+# User configuration
+name: test-site
+type: wordpress
+docroot: ""
+php_version: "8.4" # Keep this comment
+upload_dirs: [wp-content/uploads, custom-uploads]
+hooks:
+  pre-start:
+    - exec-host: echo before
+  post-start:
+    # A custom multiline hook
+    - exec: |
+        echo user-hook
+        echo second-line
+    - exec: wp config set CUSTOM_FLAG true --raw
+    - exec: wp config set WP_DEBUG true --raw
+    - exec: wp config set WP_DEBUG true --raw
+    - exec-host: echo after

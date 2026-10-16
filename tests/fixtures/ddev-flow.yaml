@@ -1,0 +1,4 @@
+name: test-site
+type: wordpress
+hooks: { post-start: [{ exec: "echo user-hook" }] }
+upload_dirs: [custom-uploads]
