@@ -1,6 +1,11 @@
+import { createRequire } from "node:module";
 import { createSettingsSchema } from "../config/settings.js";
 import { validateExecInstaller, validateField } from "../config/validation.js";
 import { configFilename, parseConfig, readConfigText } from "../config/store.js";
+
+const require = createRequire(import.meta.url);
+
+const closedReadlineGuard = Symbol("closedReadlineGuard");
 
 const sectionLabels = {
   ddev: "DDEV",
@@ -9,6 +14,32 @@ const sectionLabels = {
   theme: "Theme",
   devConfig: "Development Config",
 };
+
+// On Node 24+, readline may close itself on Ctrl+C before Enquirer runs its cleanup handler.
+function guardEnquirerReadlineCleanup() {
+  const keypress = require("enquirer/lib/keypress.js");
+  if (keypress.listen[closedReadlineGuard]) return;
+
+  const listen = keypress.listen;
+  const patchedListen = (options, onKeypress) =>
+    listen(options, (buffer, key, readline) => {
+      if (!readline[closedReadlineGuard]) {
+        const pause = readline.pause;
+        const close = readline.close;
+        readline.pause = function (...args) {
+          return this.closed ? this : pause.apply(this, args);
+        };
+        readline.close = function (...args) {
+          return this.closed ? this : close.apply(this, args);
+        };
+        Object.defineProperty(readline, closedReadlineGuard, { value: true });
+      }
+
+      return onKeypress(buffer, key, readline);
+    });
+  Object.defineProperty(patchedListen, closedReadlineGuard, { value: true });
+  keypress.listen = patchedListen;
+}
 
 export class CancelledError extends Error {
   constructor(exitCode = 0) {
@@ -20,6 +51,8 @@ export class CancelledError extends Error {
 
 /** Enquirer rejects without an Error when the user presses Ctrl+C. */
 export async function createPrompt() {
+  guardEnquirerReadlineCleanup();
+
   const { default: enquirer } = await import("enquirer");
   return async (options) => {
     try {

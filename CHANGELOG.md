@@ -22,6 +22,7 @@
 - Restore the original startup directory note, capitalize wizard section headers, and show prompt hints.
 - Save settings before preflight so answers survive missing Docker or other requirements.
 - Add conditional PHP namespace/function-prefix choices and create the requested documentation TODO file.
+- Handle Enquirer's Ctrl+C readline cleanup safely on Node 24+.
 - Corrected informational flag precedence, header suppression, and error exit codes.
 - Keep select choice metadata intact during interactive validation and warn users to check the target directory before continuing.
 - Restore colored CLI headers and support `FORCE_COLOR` for terminals that do not report TTY output.
