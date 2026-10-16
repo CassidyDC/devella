@@ -10,6 +10,7 @@ const exec = promisify(execFile);
 const root = fileURLToPath(new URL("../", import.meta.url));
 const temporary = await mkdtemp(path.join(tmpdir(), "ddev-wp package-"));
 const npmCli = process.env.npm_execpath;
+
 assert.ok(npmCli, "Run this check with npm run test:package.");
 
 /**
@@ -27,6 +28,7 @@ try {
   // npm 12 keys pack results by package name; earlier npm versions return an array.
   const packed = Array.isArray(result) ? result[0] : Object.values(result)[0];
   const published = new Set(packed.files.map(({ path: filename }) => filename));
+
   for (const filename of [
     "package.json",
     "bin/ddev-wp.js",
@@ -35,13 +37,16 @@ try {
     "src/install/templates/bootstrap.js",
   ])
     assert.ok(published.has(filename), `Missing published file: ${filename}`);
+
   assert.ok(![...published].some((filename) => /^(tests|docs|src\/js)\//.test(filename)));
   const consumer = path.join(temporary, "consumer project");
+
   await mkdir(consumer);
   await writeFile(
     path.join(consumer, "package.json"),
     JSON.stringify({ name: "ddev-wp-package-check", private: true }),
   );
+
   await npm(
     [
       "install",
@@ -54,20 +59,25 @@ try {
     ],
     consumer,
   );
+
   const installed = path.join(consumer, "node_modules", "ddev-local-wp-setup");
   const pkg = JSON.parse(await readFile(path.join(installed, "package.json"), "utf8"));
   const bin = path.join(consumer, "node_modules", ".bin", "ddev-wp");
   const version = await exec(bin, ["--version"], { cwd: consumer });
+
   assert.equal(version.stdout, `v${pkg.version}\n`);
   const help = await exec(bin, ["-h", "-nh", "-nc"], { cwd: consumer });
+
   assert.match(help.stdout, /ddev-wp <command>/);
   assert.ok(!help.stdout.includes("┌"));
   const entry = pathToFileURL(path.join(installed, pkg.main)).href;
+
   const imported = await exec(
     process.execPath,
     ["--input-type=module", "-e", `await import(${JSON.stringify(entry)})`, "install"],
     { cwd: consumer },
   );
+
   assert.equal(imported.stdout, "");
   assert.equal(imported.stderr, "");
   // Check every shipped module resolves using only the installed runtime dependencies.
@@ -76,6 +86,7 @@ try {
     .map((filename) => `await import(${JSON.stringify(pathToFileURL(path.join(installed, filename)).href)});`)
     .join("\n");
   const allModules = await exec(process.execPath, ["--input-type=module", "-e", imports], { cwd: consumer });
+
   assert.equal(allModules.stdout, "");
   assert.equal(allModules.stderr, "");
   console.log(`Packed CLI passed: ${modules.length} modules, installed executable, help, version, and import safety.`);

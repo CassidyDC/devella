@@ -11,7 +11,9 @@ test("disabled logging needs no path and inactive custom settings never execute"
     plugin: { custom: true, customSlug: "stale-plugin" },
     devConfig: { git: true, toolsetWPContent: true },
   });
+
   const normalized = normalizeSettings(raw, "/tmp/test-site");
+
   assert.equal(normalized.wordpress.debugLog, false);
   assert.equal(normalized.wordpress.debugScript, false);
   assert.equal(normalized.wordpress.debugLogPath, null);
@@ -26,6 +28,7 @@ test("saved fields are revalidated; missing fields and passwords are collected",
   const raw = savedSettings({ ddev: { localhost: "false" }, wordpress: { adminEmail: 42 }, devConfig: { git: true } });
   const requested = [];
   const answers = { localhost: false, adminEmail: "fixed@example.test", adminPassword: "new-secret" };
+
   const settings = await collectSettings("/tmp/test-site", raw, {
     reporter: recordingReporter().reporter,
     prompt: async ({ name }) => {
@@ -33,6 +36,7 @@ test("saved fields are revalidated; missing fields and passwords are collected",
       return { [name]: answers[name] };
     },
   });
+
   assert.deepEqual(requested, ["localhost", "adminPassword", "adminEmail"]);
   assert.equal(settings.devConfig.git, true);
   assert.equal(settings.wordpress.adminPassword, "new-secret");
@@ -42,6 +46,7 @@ test("saved fields are revalidated; missing fields and passwords are collected",
 test("conditional prompts skip stale disabled values and resolve dependent defaults", async () => {
   const raw = savedSettings({ wordpress: { debug: false }, theme: { custom: true, customName: "My Theme" } });
   const requested = [];
+
   const result = await collectSettings("/tmp/test-site", raw, {
     reporter: recordingReporter().reporter,
     prompt: async ({ name, initial }) => {
@@ -49,6 +54,7 @@ test("conditional prompts skip stale disabled values and resolve dependent defau
       return { [name]: name === "adminPassword" ? "password" : initial };
     },
   });
+
   assert.deepEqual(requested, ["adminPassword", "useNamespace", "customSlug", "customNamespace"]);
   assert.equal(result.theme.customSlug, "my-theme");
   assert.equal(result.theme.customNamespace, "CassidyDC\\MyTheme");

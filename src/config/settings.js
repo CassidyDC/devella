@@ -92,6 +92,7 @@ export function createSettingsSchema(rootDir) {
       enabled: (settings) => settings[kind].custom && settings[kind].useNamespace === false,
     }),
   });
+
   return {
     ddev: {
       projectName: input("DDEV project name:", {

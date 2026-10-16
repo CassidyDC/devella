@@ -29,25 +29,36 @@ function promptFor(settings, { restart = false, cancel = false } = {}) {
 test("the full installer supports a fresh project, a rerun, and recovery from a partial homepage setup", async (t) => {
   const rootDir = await temporaryProject(t);
   const settings = savedSettings({ wordpress: { debug: false }, devConfig: { git: true, toolsetWPContent: true } });
+
   await saveConfig(rootDir, settings);
   const simulation = wordpressSimulation();
+
   const { calls, runCommand } = commandRunner(async (command, args) => {
     if (args[0] === "--version" || args[0] === "info" || command === "composer") return {};
+
     assert.equal(command, "ddev");
+
     if (args[0] === "list") return { stdout: '{"raw":[]}' };
+
     if (args[0] === "stop") return { exitCode: 1, stderr: "project not found" };
+
     if (args[0] === "config") {
       await mkdir(path.join(rootDir, ".ddev"), { recursive: true });
       await writeFile(path.join(rootDir, ".ddev/config.yaml"), "name: test-site\ntype: wordpress\n");
       return {};
     }
+
     if (args[0] === "start") return {};
+
     return simulation.handle(args);
   });
+
   const context = { rootDir, prompt: promptFor(settings), reporter: recordingReporter().reporter, runCommand };
+
   assert.deepEqual(await runInstaller(context), { freshInstall: true });
   const firstDdevConfig = await readFile(path.join(rootDir, ".ddev/config.yaml"), "utf8");
   const saved = JSON.parse(await readConfigText(rootDir));
+
   assert.equal(saved.wordpress.adminPassword, undefined);
   assert.equal(saved.devConfig.git, true);
   assert.equal(saved.devConfig.toolsetWPContent, true);
@@ -58,6 +69,7 @@ test("the full installer supports a fresh project, a rerun, and recovery from a 
   const composerInstall = calls.findIndex(({ command, args }) => command === "composer" && args[0] !== "--version");
   const ddevStart = calls.findIndex(({ command, args }) => command === "ddev" && args[0] === "start");
   const wpInstall = calls.findIndex(({ args }) => args[0] === "wp" && args[1] === "core" && args[2] === "install");
+
   assert.ok(dockerCheck >= 0 && dockerCheck < composerInstall && composerInstall < ddevStart && ddevStart < wpInstall);
   calls.length = 0;
   simulation.state.options.show_on_front = "posts";
@@ -72,18 +84,22 @@ test("the full installer supports a fresh project, a rerun, and recovery from a 
 
 test("confirmation exit and Ctrl+C create no files or subprocesses", async (t) => {
   const settings = savedSettings();
+
   for (const interrupt of [false, true]) {
     const rootDir = await temporaryProject(t);
     const { calls, runCommand } = commandRunner();
+
     const prompt = interrupt
       ? async () => {
           throw new CancelledError(130);
         }
       : promptFor(settings, { cancel: true });
+
     await assert.rejects(
       runInstaller({ rootDir, prompt, reporter: recordingReporter().reporter, runCommand }),
       CancelledError,
     );
+
     assert.deepEqual(await readdir(rootDir), []);
     assert.equal(calls.length, 1);
     assert.equal(calls[0].command, "docker");
@@ -94,12 +110,15 @@ test("confirmation exit and Ctrl+C create no files or subprocesses", async (t) =
 test("a preflight failure saves answers without the password and stops the full installer", async (t) => {
   const rootDir = await temporaryProject(t);
   const settings = savedSettings();
+
   await writeFile(path.join(rootDir, configFilename), "broken JSON");
   let dockerInfoChecks = 0;
+
   const { calls, runCommand } = commandRunner((command, args) => {
     if (command === "docker" && args[0] === "info" && [1, 3].includes(++dockerInfoChecks))
       throw new Error("Docker provider stopped after the startup check");
   });
+
   await assert.rejects(
     runInstaller({
       rootDir,
@@ -109,7 +128,9 @@ test("a preflight failure saves answers without the password and stops the full 
     }),
     /Docker is unavailable/,
   );
+
   const saved = JSON.parse(await readConfigText(rootDir));
+
   assert.equal(saved.wordpress.adminUsername, settings.wordpress.adminUsername);
   assert.equal(saved.wordpress.adminPassword, undefined);
   assert.equal(await readFile(path.join(rootDir, "ddev-local-wp-setup-config_000.bak"), "utf8"), "broken JSON");
@@ -121,14 +142,18 @@ test("a preflight failure saves answers without the password and stops the full 
 test("a Composer failure prevents DDEV and WordPress execution", async (t) => {
   const rootDir = await temporaryProject(t);
   const settings = savedSettings();
+
   await saveConfig(rootDir, settings);
+
   const { calls, runCommand } = commandRunner((command, args) => {
     if (command === "composer" && args[0] !== "--version") throw new Error("Composer dependency resolution failed");
     if (command === "ddev" && args[0] === "list") return { stdout: '{"raw":[]}' };
   });
+
   await assert.rejects(
     runInstaller({ rootDir, prompt: promptFor(settings), reporter: recordingReporter().reporter, runCommand }),
     /dependency resolution failed/,
   );
+
   assert.ok(!calls.some(({ command, args }) => command === "ddev" && !["--version", "list"].includes(args[0])));
 });

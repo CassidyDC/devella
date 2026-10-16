@@ -10,6 +10,7 @@ import {
 
 test("slugs reject spaces and non-domain characters", () => {
   assert.equal(validateSlug("my-project"), true);
+
   for (const value of ["", "My Site", "site.ddev.site", "../site"]) {
     assert.equal(typeof validateSlug(value), "string");
   }

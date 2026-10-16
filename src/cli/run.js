@@ -14,13 +14,17 @@ import { CancelledError } from "./wizard.js";
 export async function runCli(argv, dependencies = {}) {
   const rootDir = dependencies.rootDir ?? process.cwd();
   const reporter = dependencies.reporter ?? createReporter(dependencies);
+
   try {
     const args = parseArguments(argv);
+
     if (args.errors.length) {
       for (const error of args.errors) reporter.error(error);
       return 1;
     }
+
     const pkg = dependencies.pkg ?? JSON.parse(await readFile(new URL("../../package.json", import.meta.url), "utf8"));
+
     const action = args.flags.has("help")
       ? "help"
       : args.flags.has("version")
@@ -28,10 +32,12 @@ export async function runCli(argv, dependencies = {}) {
         : args.flags.has("debug")
           ? "debug"
           : (args.command ?? "help");
+
     if (action !== "version") {
       if (!args.flags.has("no-clear")) reporter.clear();
       if (!args.flags.has("no-header")) reporter.header(pkg);
     }
+
     if (action === "help") reporter.help(pkg);
     else if (action === "version") reporter.info(`v${pkg.version}`);
     else if (action === "debug") reporter.debug(pkg, rootDir);
@@ -39,17 +45,21 @@ export async function runCli(argv, dependencies = {}) {
       const install = dependencies.install ?? (await import("../install/run.js")).runInstaller;
       await install({ ...dependencies, rootDir, reporter });
     }
+
     return 0;
   } catch (error) {
     if (error instanceof CancelledError) {
       reporter.info(error.message);
       return error.exitCode;
     }
+
     if (error?.signal === "SIGINT") {
       reporter.info("Installation cancelled.");
       return 130;
     }
+
     reporter.error(error instanceof Error ? error.message : "Installation failed.");
+
     return 1;
   }
 }

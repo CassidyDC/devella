@@ -60,6 +60,7 @@ async function ensureDockerProvider({ rootDir, reporter, prompt, runCommand }) {
       reporter.error("");
       reporter.error("Docker is not available. Start your Docker provider before continuing the wizard.");
       reporter.error("");
+
       const { dockerProvider } = await prompt({
         type: "input",
         name: "dockerProvider",

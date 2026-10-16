@@ -16,6 +16,7 @@ test("help advertises the existing executable, install command, and aliases", as
 
 test("the executable prints only its version and returns failure for unknown commands", async () => {
   const { stdout } = await exec(process.execPath, [fileURLToPath(entry), "--version"]);
+
   assert.match(stdout, /^v\d+\.\d+\.\d+\n$/);
   await assert.rejects(exec(process.execPath, [fileURLToPath(entry), "unknown"]), (error) => {
     assert.equal(error.code, 1);
@@ -26,12 +27,14 @@ test("the executable prints only its version and returns failure for unknown com
 
 test("importing the CLI with install in argv has no side effects", async () => {
   const moduleUrl = new URL("../../src/cli/run.js", import.meta.url).href;
+
   const { stdout, stderr } = await exec(process.execPath, [
     "--input-type=module",
     "-e",
     `await import(${JSON.stringify(moduleUrl)})`,
     "install",
   ]);
+
   assert.equal(stdout, "");
   assert.equal(stderr, "");
 });

@@ -37,6 +37,7 @@ export class CommandError extends Error {
         : result.signal
           ? `was interrupted by ${result.signal}`
           : `exited with code ${result.exitCode}`;
+
     super(`${command} ${detail}.`, { cause });
     this.name = "CommandError";
     Object.assign(this, result);
@@ -64,23 +65,29 @@ export function runCommand(
   } = {},
 ) {
   if (!cwd) throw new Error("Subprocess working directory is required.");
+
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { cwd, shell: false, stdio: ["inherit", "pipe", "pipe"] });
     let stdout = "";
     let stderr = "";
+
     child.stdout.setEncoding("utf8").on("data", (chunk) => {
       if (output !== "silent") stdout += chunk;
       if (output === "stream") outputStream.write(chunk);
     });
+
     child.stderr.setEncoding("utf8").on("data", (chunk) => {
       if (output !== "silent") stderr += chunk;
       if (output === "stream") errorStream.write(chunk);
     });
+
     child.once("error", (cause) =>
       reject(new CommandError(command, { stdout, stderr, exitCode: null, signal: null }, cause)),
     );
+
     child.once("close", (exitCode, signal) => {
       const result = { stdout, stderr, exitCode, signal };
+
       if (signal || (exitCode !== 0 && !allowFailure)) reject(new CommandError(command, result));
       else resolve(result);
     });

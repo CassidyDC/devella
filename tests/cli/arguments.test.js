@@ -9,6 +9,7 @@ const pkg = { name: "test-cli", displayName: "Test CLI", version: "1.0.0" };
 
 test("normalize command aliases and all long and short flags", () => {
   const aliases = { debug: "d", help: "h", version: "v", "no-clear": "nc", "no-header": "nh" };
+
   for (const [name, alias] of Object.entries(aliases)) {
     for (const flag of [`--${name}`, `-${alias}`]) {
       const args = parseArguments(["i", flag]);
@@ -49,8 +50,10 @@ test("suppression flags prevent terminal clearing and header output", async () =
 
 test("invalid input and execution errors return nonzero, cancellation is handled", async () => {
   const { reporter, events } = recordingReporter();
+
   assert.equal(await runCli(["--bad", "--help"], { pkg, reporter }), 1);
   assert.equal(events[0][0], "error");
+
   for (const [error, status] of [
     [new Error("DDEV failed"), 1],
     [new CancelledError(), 0],

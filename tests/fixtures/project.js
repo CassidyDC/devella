@@ -46,7 +46,9 @@ export function savedSettings(overrides = {}) {
     theme: { custom: false, defaultTheme: true },
     devConfig: { docs: true },
   };
+
   for (const [section, values] of Object.entries(overrides)) settings[section] = { ...settings[section], ...values };
+
   return settings;
 }
 
@@ -57,6 +59,7 @@ export function savedSettings(overrides = {}) {
  */
 export function recordingReporter() {
   const events = [];
+
   const reporter = Object.fromEntries(
     ["info", "success", "warn", "dim", "error", "heading", "clear", "header", "help", "debug"].map((name) => [
       name,

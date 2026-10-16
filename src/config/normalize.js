@@ -26,6 +26,7 @@ import { projectRelativePath } from "../system/paths.js";
 export function normalizeSettings(raw, rootDir) {
   const schema = createSettingsSchema(rootDir);
   const settings = Object.fromEntries(Object.keys(schema).map((section) => [section, {}]));
+
   for (const [section, fields] of Object.entries(schema)) {
     for (const [name, field] of Object.entries(fields)) {
       if (field.enabled && !field.enabled(settings)) continue;
@@ -35,7 +36,9 @@ export function normalizeSettings(raw, rootDir) {
       settings[section][name] = typeof value === "string" && !field.secret ? value.trim() : value;
     }
   }
+
   const wp = settings.wordpress;
+
   wp.coreDir = projectRelativePath(wp.coreDir);
   wp.debugLog = wp.debug && !!wp.debugLog;
   wp.debugScript = wp.debug && !!wp.debugScript;
@@ -43,5 +46,6 @@ export function normalizeSettings(raw, rootDir) {
   wp.debugLogPath = wp.debugLog ? projectRelativePath(wp.debugLogPath) : null;
   wp.wpDevMode = wp.wpDevMode.toLowerCase();
   wp.wpEnvType = wp.wpEnvType.toLowerCase();
+
   return settings;
 }

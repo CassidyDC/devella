@@ -20,6 +20,7 @@ import { commandRunner, recordingReporter, savedSettings, temporaryProject } fro
  */
 async function context(t, overrides) {
   const rootDir = await temporaryProject(t);
+
   return {
     rootDir,
     settings: normalizeSettings(savedSettings(overrides), rootDir),
@@ -30,6 +31,7 @@ async function context(t, overrides) {
 
 test("preflight probes dependencies without creating project files", async (t) => {
   const ctx = await context(t);
+
   await preflight(ctx);
   assert.deepEqual(await readdir(ctx.rootDir), []);
   assert.deepEqual(
@@ -42,6 +44,7 @@ test("preflight probes dependencies without creating project files", async (t) =
       ["ddev", "list", "--json-output"],
     ],
   );
+
   assert.ok(ctx.calls.every(({ options }) => options.cwd === ctx.rootDir));
 });
 
@@ -50,6 +53,7 @@ test("unavailable Docker fails with an actionable message before writes", async 
   const { runCommand } = commandRunner((command, args) => {
     if (args[0] === "info") throw new Error("daemon down");
   });
+
   await assert.rejects(preflight({ ...ctx, runCommand }), /Start your Docker provider/);
   assert.deepEqual(await readdir(ctx.rootDir), []);
 });
@@ -57,6 +61,7 @@ test("unavailable Docker fails with an actionable message before writes", async 
 test("a DDEV project registered elsewhere cannot be stopped or reused", async (t) => {
   const ctx = await context(t);
   const otherRoot = await temporaryProject(t);
+
   const { calls, runCommand } = commandRunner((command, args) =>
     args[0] === "list"
       ? {
@@ -64,6 +69,7 @@ test("a DDEV project registered elsewhere cannot be stopped or reused", async (t
         }
       : {},
   );
+
   await assert.rejects(preflight({ ...ctx, runCommand }), /different directory/);
   assert.deepEqual(await readdir(ctx.rootDir), []);
   assert.ok(!calls.some(({ args }) => args[0] === "stop"));
@@ -71,6 +77,7 @@ test("a DDEV project registered elsewhere cannot be stopped or reused", async (t
 
 test("a registered project in the same directory is available for configuration recovery", async (t) => {
   const ctx = await context(t);
+
   const { runCommand } = commandRunner((command, args) =>
     args[0] === "list"
       ? {
@@ -102,8 +109,10 @@ test("conflicting bootstrap files, Composer settings, and YAML are preserved", a
 test("project paths reject traversal, escaping symlinks, and dangling symlinks", async (t) => {
   const root = await temporaryProject(t);
   const outside = await temporaryProject(t);
+
   for (const value of ["/../outside", "/a/../../outside", "C:/outside", "a\\b", "/", "a\0b"])
     assert.throws(() => projectRelativePath(value));
+
   await symlink(outside, path.join(root, "escape"));
   await assert.rejects(assertProjectPath(root, "escape/file"), /symlink/);
   await symlink(path.join(outside, "missing"), path.join(root, "dangling"));
@@ -129,6 +138,7 @@ test("filesystem preparation preserves files and supports disabled or root-level
 
 test("Composer merges existing settings and installs from the lock on reruns", async (t) => {
   const ctx = await context(t);
+
   const existing = {
     name: "user/project",
     require: { "roots/wordpress": "^6.0", "some/package": "^1" },
@@ -136,10 +146,12 @@ test("Composer merges existing settings and installs from the lock on reruns", a
     config: { "allow-plugins": { "other/plugin": true } },
     scripts: { custom: "echo keep" },
   };
+
   await writeFile(path.join(ctx.rootDir, "composer.json"), JSON.stringify(existing));
   await preflight(ctx);
   await prepareComposer(ctx);
   const composer = JSON.parse(await readFile(path.join(ctx.rootDir, "composer.json"), "utf8"));
+
   assert.deepEqual(composer.require, existing.require);
   assert.deepEqual(composer.scripts, existing.scripts);
   assert.equal(composer.extra.custom, "keep");

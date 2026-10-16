@@ -87,9 +87,12 @@ export const validateExecInstaller = (value) =>
 export function validateWPCoreDir(value) {
   try {
     if (typeof value !== "string" || !value.startsWith("/")) return 'Path must start with a "/".';
+
     const relative = projectRelativePath(value);
+
     if (["wp-content", ".ddev", ".git", "vendor", "node_modules"].includes(relative.split("/")[0]))
       return "Choose a separate WordPress core directory.";
+
     return true;
   } catch (error) {
     return error.message;
@@ -106,7 +109,9 @@ export function validateLogPath(value) {
   try {
     if (typeof value !== "string" || !value.startsWith("/") || !value.endsWith(".log"))
       return "Use a project-relative /path/file.log.";
+
     projectRelativePath(value);
+
     return true;
   } catch (error) {
     return error.message;

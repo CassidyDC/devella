@@ -19,6 +19,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
    * @returns {boolean} Whether the stream accepted the write immediately.
    */
   const line = (value = "") => stdout.write(`${value}\n`);
+
   return {
     /**
      * Write plain informational output.
@@ -27,6 +28,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard output accepted the write immediately.
      */
     info: line,
+
     /**
      * Write a green success message.
      *
@@ -34,6 +36,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard output accepted the write immediately.
      */
     success: (message) => line(c.green(message)),
+
     /**
      * Write a yellow warning message.
      *
@@ -41,6 +44,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard output accepted the write immediately.
      */
     warn: (message) => line(c.yellow(message)),
+
     /**
      * Write dim gray informational output.
      *
@@ -48,6 +52,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard output accepted the write immediately.
      */
     dim: (message) => line(c.gray.dim(message)),
+
     /**
      * Write a red error message to standard error.
      *
@@ -55,6 +60,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard error accepted the write immediately.
      */
     error: (message) => stderr.write(`${c.red(message)}\n`),
+
     /**
      * Write a highlighted section heading.
      *
@@ -62,6 +68,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {boolean} Whether standard output accepted the write immediately.
      */
     heading: (message) => line(`\n${c.bgBlue.bold(` ${message} `)}\n`),
+
     /**
      * Clear the screen when standard output is a terminal.
      *
@@ -70,6 +77,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
     clear: () => {
       if (stdout.isTTY) stdout.write("\u001b[2J\u001b[H");
     },
+
     /**
      * Render the package name and author header.
      *
@@ -84,6 +92,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
       line(`│ ${c.dim(lines[1])}${" ".repeat(width - stringWidth(lines[1]))} │`);
       line(`└${"─".repeat(width + 2)}┘`);
     },
+
     /**
      * Render command and flag usage information.
      *
@@ -92,15 +101,20 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      */
     help(pkg) {
       line(`${pkg.description}\n\nUsage:\n  ddev-wp <command> [flags]\n\nCommands:`);
+
       for (const [name, { alias, description }] of Object.entries(commands))
         line(`  ${alias}, ${name}  ${description}`);
+
       line("\nFlags:");
+
       for (const [name, { alias, description }] of Object.entries(flags))
         line(`  -${alias}, --${name}  ${description}`);
+
       line(
         "\nExamples:\n  ddev-wp install\n  ddev-wp --version\n  npm exec --package=ddev-local-wp-setup -- ddev-wp install\n",
       );
     },
+
     /**
      * Render CLI diagnostics for the current project directory.
      *

@@ -15,13 +15,16 @@ export function projectFiles({ rootDir, settings }) {
     "index.php": renderIndex(settings.wordpress.coreDir),
     "wp-cli.yml": renderWpCli(settings.wordpress.coreDir),
   };
+
   if (settings.ddev.spatieRay)
     Object.assign(files, {
       ".ddev/web-build/Dockerfile": rayDockerfile,
       ".ddev/php/php-ray.ini": rayIni,
       "ray.php": renderRay(rootDir),
     });
+
   if (settings.devConfig.docs) files["wp-content/docs/TODO.md"] = "# TODO\n";
+
   return files;
 }
 
@@ -33,12 +36,17 @@ export function projectFiles({ rootDir, settings }) {
  */
 export function projectDirectories({ settings }) {
   const directories = [settings.wordpress.coreDir, "wp-content/plugins", "wp-content/themes"];
+
   if (settings.plugin.custom) directories.push(`wp-content/plugins/${settings.plugin.customSlug}`);
+
   if (settings.theme.custom) directories.push(`wp-content/themes/${settings.theme.customSlug}`);
+
   if (settings.wordpress.debugLog && path.posix.dirname(settings.wordpress.debugLogPath) !== ".") {
     directories.push(path.posix.dirname(settings.wordpress.debugLogPath));
   }
+
   if (settings.devConfig.docs) directories.push("wp-content/docs");
+
   return directories;
 }
 
@@ -66,13 +74,18 @@ export async function readOptionalFile(filename) {
  */
 export async function prepareFilesystem(context) {
   const { rootDir, reporter } = context;
+
   reporter.heading("Preparing Project Files");
+
   for (const relative of projectDirectories(context)) {
     await mkdir(await assertProjectPath(rootDir, relative), { recursive: true });
   }
+
   for (const [relative, content] of Object.entries(projectFiles(context))) {
     const filename = await assertProjectPath(rootDir, relative);
+
     await mkdir(path.dirname(filename), { recursive: true });
+
     try {
       await writeFile(filename, content, { flag: "wx" });
       reporter.success(`Created ${relative}.`);
