@@ -49,6 +49,7 @@
     "prettier-plugin-multiline-arrays": "^4.1.11"
   },
   "scripts": {
+    "test": "node --test",
     "check": "npx prettier . --check",
     "format": "npx prettier . --write",
     "lint:docs": "npx markdownlint-cli2 \"**/*.md\"",

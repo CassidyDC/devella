@@ -1,5 +1,11 @@
 # Changelog for `ddev-local-wp-setup`
 
+## [Unreleased]
+
+### Added
+
+- Added automated CLI and configuration regression tests with Node's built-in test runner.
+
 ## [2.4.0] - 2026-07-25
 
 ### Changed
