@@ -32,7 +32,7 @@ test("preflight probes dependencies without creating project files", async (t) =
       ["composer", "--version"],
       ["docker", "--version"],
       ["docker", "info"],
-      ["ddev", "list", "--json"],
+      ["ddev", "list", "--json-output"],
     ],
   );
   assert.ok(ctx.calls.every(({ options }) => options.cwd === ctx.rootDir));

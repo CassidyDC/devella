@@ -86,7 +86,7 @@ export async function preflight(context) {
   } catch (error) {
     throw new Error("Docker is unavailable. Start your Docker provider, then rerun the installer.", { cause: error });
   }
-  const { stdout } = await runCommand("ddev", ["list", "--json"], { cwd: rootDir, output: "capture" });
+  const { stdout } = await runCommand("ddev", ["list", "--json-output"], { cwd: rootDir, output: "capture" });
   let projects;
   try {
     projects = JSON.parse(stdout).raw;
