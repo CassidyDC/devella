@@ -33,7 +33,7 @@ export function readComposer(text) {
 }
 
 export async function prepareComposer({ rootDir, settings, runCommand, reporter }) {
-  reporter.heading("Preparing Composer and WordPress core files");
+  reporter.heading("Preparing Composer and WordPress Core Files");
   const filename = await assertProjectPath(rootDir, "composer.json");
   const previous = await readOptionalFile(filename);
   const composer = readComposer(previous ?? renderComposer(settings.wordpress.coreDir));

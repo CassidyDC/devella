@@ -49,7 +49,7 @@ test("conditional prompts skip stale disabled values and resolve dependent defau
       return { [name]: name === "adminPassword" ? "password" : initial };
     },
   });
-  assert.deepEqual(requested, ["adminPassword", "customSlug", "customNamespace"]);
+  assert.deepEqual(requested, ["adminPassword", "useNamespace", "customSlug", "customNamespace"]);
   assert.equal(result.theme.customSlug, "my-theme");
   assert.equal(result.theme.customNamespace, "CassidyDC\\MyTheme");
 });

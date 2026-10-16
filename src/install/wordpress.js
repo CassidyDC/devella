@@ -15,7 +15,7 @@ export async function setupWordPress({ rootDir, settings, runCommand, reporter }
     if ((await capture(["option", "get", name])) !== value) await wp(["option", "update", name, value]);
   };
   const { wordpress: options } = settings;
-  reporter.heading("Setting up WordPress");
+  reporter.heading("Setting Up WordPress");
   const installed = await probe(["core", "is-installed"]);
   const freshInstall = installed.exitCode === 1 && !installed.stderr.trim() && !installed.stdout.trim();
   if (installed.exitCode !== 0 && !freshInstall) {
@@ -43,7 +43,7 @@ export async function setupWordPress({ rootDir, settings, runCommand, reporter }
       { output: "stream" },
     );
     if (options.cleanState) {
-      reporter.heading("Removing new-install defaults");
+      reporter.heading("Removing New-Install Defaults");
       const adminId = await capture(["user", "get", options.adminUsername, "--field=ID"]);
       if (!/^\d+$/.test(adminId)) throw new Error("Could not determine the new administrator's user ID.");
       await wp([

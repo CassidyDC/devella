@@ -23,6 +23,10 @@ export const validateNamespace = (value) =>
     /^[A-Z]/.test(value.trim())) ||
   "Enter a PHP namespace starting with a capital letter.";
 
+export const validateFunctionPrefix = (value) =>
+  (typeof value === "string" && /^[a-z][a-z0-9_]*_$/.test(value.trim())) ||
+  "Use lowercase letters, digits, and underscores, ending with an underscore.";
+
 export const validateExecInstaller = (value) =>
   (typeof value === "string" && ["run", "exit"].includes(value.trim().toLowerCase())) || 'Type "run" or "exit".';
 

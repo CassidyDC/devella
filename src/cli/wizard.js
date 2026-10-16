@@ -2,6 +2,14 @@ import { createSettingsSchema } from "../config/settings.js";
 import { validateExecInstaller, validateField } from "../config/validation.js";
 import { configFilename, parseConfig, readConfigText } from "../config/store.js";
 
+const sectionLabels = {
+  ddev: "DDEV",
+  wordpress: "WordPress",
+  plugin: "Plugin",
+  theme: "Theme",
+  devConfig: "Development Config",
+};
+
 export class CancelledError extends Error {
   constructor(exitCode = 0) {
     super("Installation cancelled.");
@@ -15,7 +23,11 @@ export async function createPrompt() {
   const { default: enquirer } = await import("enquirer");
   return async (options) => {
     try {
-      return await enquirer.prompt(options);
+      const promptOptions =
+        options.type === "input" && options.hint && options.initial
+          ? { ...options, message: `${options.message} (${options.hint})`, hint: undefined }
+          : options;
+      return await enquirer.prompt(promptOptions);
     } catch (error) {
       if (!(error instanceof Error)) throw new CancelledError(130);
       throw error;
@@ -36,7 +48,7 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
       const saved = settings[section][name];
       if (Object.hasOwn(settings[section], name) && validateField(field, saved) === true) continue;
       if (!headingShown) {
-        reporter.heading(`${section} settings`);
+        reporter.heading(`${sectionLabels[section]} Settings`);
         headingShown = true;
       }
       if (saved !== undefined) reporter.warn(`The saved value for ${section}.${name} is invalid; enter a replacement.`);
@@ -66,13 +78,24 @@ export async function collectSettings(rootDir, existing, { prompt, reporter }) {
       }
     }
   }
+  for (const kind of ["theme", "plugin"]) {
+    if (!settings[kind].useNamespace) delete settings[kind].customNamespace;
+    else delete settings[kind].customFunctionPrefix;
+  }
   return settings;
 }
 
 export async function runWizard({ rootDir, prompt, reporter }) {
-  reporter.heading("Installation wizard");
-  reporter.warn(`Check the project directory before continuing: ${rootDir}`);
-  reporter.warn("The installer will create files and configure this directory as a DDEV WordPress project.");
+  reporter.heading("Installation Wizard");
+  reporter.warn(
+    `Note: make sure you are running this wizard from the directory you want to install your local DDEV server in. (You are currently in ${rootDir}). If that is not where you want to be, type "exit" then press enter, and restart the wizard from the correct directory.`,
+  );
+  const { answer: continueAnswer } = await prompt({
+    type: "input",
+    name: "answer",
+    message: 'Press Enter to continue, or type "exit" to quit:',
+  });
+  if (continueAnswer.trim().toLowerCase() === "exit") throw new CancelledError();
   const text = await readConfigText(rootDir);
   let existing = {};
   let restart = false;
@@ -86,16 +109,9 @@ export async function runWizard({ rootDir, prompt, reporter }) {
     restart = reuse === "Start from scratch";
     if (!restart) existing = parseConfig(text);
   }
-  if (text === null || restart) {
-    const { answer } = await prompt({
-      type: "input",
-      name: "answer",
-      message: 'Check the directory above. Press Enter to continue, or type "exit" to quit:',
-    });
-    if (answer.trim().toLowerCase() === "exit") throw new CancelledError();
-  }
   const settings = await collectSettings(rootDir, existing, { prompt, reporter });
   reporter.info("All settings have been collected. The administrator password will not be saved.");
+  reporter.info("");
   const { answer } = await prompt({
     type: "input",
     name: "answer",

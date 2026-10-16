@@ -81,7 +81,7 @@ test("confirmation exit and Ctrl+C create no files or subprocesses", async (t) =
   }
 });
 
-test("a preflight failure preserves saved configuration and stops the full installer", async (t) => {
+test("a preflight failure saves answers without the password and stops the full installer", async (t) => {
   const rootDir = await temporaryProject(t);
   const settings = savedSettings();
   await writeFile(path.join(rootDir, configFilename), "broken JSON");
@@ -97,8 +97,11 @@ test("a preflight failure preserves saved configuration and stops the full insta
     }),
     /Missing executable/,
   );
-  assert.equal(await readConfigText(rootDir), "broken JSON");
-  assert.deepEqual(await readdir(rootDir), [configFilename]);
+  const saved = JSON.parse(await readConfigText(rootDir));
+  assert.equal(saved.wordpress.adminUsername, settings.wordpress.adminUsername);
+  assert.equal(saved.wordpress.adminPassword, undefined);
+  assert.equal(await readFile(path.join(rootDir, "ddev-local-wp-setup-config_000.bak"), "utf8"), "broken JSON");
+  assert.deepEqual((await readdir(rootDir)).sort(), [configFilename, "ddev-local-wp-setup-config_000.bak"]);
   assert.equal(calls.length, 1);
 });
 

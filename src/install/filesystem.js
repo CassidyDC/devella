@@ -15,6 +15,7 @@ export function projectFiles({ rootDir, settings }) {
       ".ddev/php/php-ray.ini": rayIni,
       "ray.php": renderRay(rootDir),
     });
+  if (settings.devConfig.docs) files["wp-content/docs/TODO.md"] = "# TODO\n";
   return files;
 }
 
@@ -25,7 +26,7 @@ export function projectDirectories({ settings }) {
   if (settings.wordpress.debugLog && path.posix.dirname(settings.wordpress.debugLogPath) !== ".") {
     directories.push(path.posix.dirname(settings.wordpress.debugLogPath));
   }
-  if (settings.devConfig.docs) directories.push("wp-content/docs/dev", "wp-content/docs/reference");
+  if (settings.devConfig.docs) directories.push("wp-content/docs");
   return directories;
 }
 
@@ -41,7 +42,7 @@ export async function readOptionalFile(filename) {
 /** Create missing files exclusively; never overwrite a user's existing files. */
 export async function prepareFilesystem(context) {
   const { rootDir, reporter } = context;
-  reporter.heading("Preparing project files");
+  reporter.heading("Preparing Project Files");
   for (const relative of projectDirectories(context)) {
     await mkdir(await assertProjectPath(rootDir, relative), { recursive: true });
   }

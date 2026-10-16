@@ -17,10 +17,10 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
     header(pkg) {
       const lines = [`${pkg.displayName} v${pkg.version}`, `By ${pkg.author.name} (${pkg.author.url})`];
       const width = Math.max(...lines.map(stringWidth));
-      line(c.cyan(`┌${"─".repeat(width + 2)}┐`));
+      line(`┌${"─".repeat(width + 2)}┐`);
       line(`│ ${c.bold(lines[0])}${" ".repeat(width - stringWidth(lines[0]))} │`);
       line(`│ ${c.dim(lines[1])}${" ".repeat(width - stringWidth(lines[1]))} │`);
-      line(c.cyan(`└${"─".repeat(width + 2)}┘`));
+      line(`└${"─".repeat(width + 2)}┘`);
     },
     help(pkg) {
       line(`${pkg.description}\n\nUsage:\n  ddev-wp <command> [flags]\n\nCommands:`);

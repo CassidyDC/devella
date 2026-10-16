@@ -17,12 +17,12 @@ Successful actions and explicit `exit` cancellation return status 0. Invalid arg
 
 ## Installation flow
 
-1. Show the target directory and warn that the installer will create files and configure a DDEV WordPress project there.
+1. Show the original directory check note with the current target directory.
 2. Offer to reuse an existing configuration or start from scratch.
 3. Collect missing or invalid enabled settings. Always request the administrator password.
 4. Ask for `run` or `exit` confirmation.
-5. Check project paths, file compatibility, dependencies, Docker availability, and DDEV project registration.
-6. Save settings, excluding the password. Back up a replaced configuration when restarting.
+5. Save settings, excluding the password. Back up a replaced configuration when restarting.
+6. Check project paths, file compatibility, dependencies, Docker availability, and DDEV project registration. Saved answers can be reused if a requirement is unavailable.
 7. Create missing project files and directories, then install WordPress core dependencies through Composer.
 8. Configure DDEV, update managed WordPress hooks and upload directories, and start the server.
 9. Check whether WordPress is installed, install it if necessary, apply supported settings, and open the admin dashboard.
@@ -61,7 +61,7 @@ wp-config.php                # Managed by DDEV
 wp-config-ddev.php            # Managed by DDEV
 ```
 
-Ray adds `.ddev/php/php-ray.ini`, `.ddev/web-build/Dockerfile`, and `ray.php`. Custom theme and plugin choices create their directories; they do not install starter files. Documentation choices create directories, not document templates.
+Ray adds `.ddev/php/php-ray.ini`, `.ddev/web-build/Dockerfile`, and `ray.php`. Custom theme and plugin choices create their directories; they do not install starter files. The documentation choice creates `wp-content/docs/TODO.md`.
 
 Existing files are not regenerated. `index.php`, `wp-cli.yml`, and Composer's WordPress install directory must agree with the selected core path. Custom bootstraps must be reviewed and aligned manually. DDEV must use the WordPress project type and project-root docroot, and its name must match the wizard setting. A project name already registered to another directory cannot be reused.
 

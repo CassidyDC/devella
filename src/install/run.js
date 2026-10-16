@@ -21,8 +21,8 @@ export async function runInstaller({ rootDir, reporter, prompt, runCommand = exe
   const result = await runWizard({ rootDir, reporter, prompt: prompt ?? (await createPrompt()) });
   const settings = normalizeSettings(result.settings, rootDir);
   const context = { rootDir, settings, runCommand, reporter };
-  context.facts = await preflight(context);
   await saveConfig(rootDir, result.settings, { restart: result.restart });
+  context.facts = await preflight(context);
   await prepareFilesystem(context);
   await prepareComposer(context);
   await setupDdev(context);

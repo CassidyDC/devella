@@ -10,8 +10,8 @@ import { projectRelativePath } from "../system/paths.js";
  * postnamePermalinks: boolean, homepage: boolean, debug: boolean, debugScript: boolean,
  * debugDisplayHidden: boolean, debugLog: boolean, debugLogPath: string|null,
  * projectType: string, wpDevMode: string, wpEnvType: string}} wordpress
- * @property {{ai1wm: boolean, custom?: boolean, customName?: string, customSlug?: string, customNamespace?: string}} plugin
- * @property {{defaultTheme: boolean, custom?: boolean, customName?: string, customSlug?: string, customNamespace?: string}} theme
+ * @property {{ai1wm: boolean, custom?: boolean, customName?: string, customSlug?: string, useNamespace?: boolean, customNamespace?: string, customFunctionPrefix?: string}} plugin
+ * @property {{defaultTheme: boolean, custom?: boolean, customName?: string, customSlug?: string, useNamespace?: boolean, customNamespace?: string, customFunctionPrefix?: string}} theme
  * @property {{docs: boolean}} devConfig
  */
 

@@ -33,13 +33,13 @@ The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. 
 - Configure debugging, environment and development modes, the site title and tagline, and optional post-name permalinks.
 - Optionally remove default content from a newly installed site and create a static homepage.
 - Optionally install an official default theme and All-in-One WP Migration.
-- Optionally create custom theme and plugin directories, documentation directories, and Spatie Ray connection files.
+- Optionally create custom theme and plugin directories, `wp-content/docs/TODO.md`, and Spatie Ray connection files.
 
 Git initialization, development toolsets, starter theme/plugin files, and VS Code files are deferred. The wizard does not offer inactive features. Their existing saved configuration keys are retained when continuing with an existing config, but do not trigger installation work.
 
 ## Saved settings and reruns
 
-Settings are saved to `ddev-local-wp-setup-config.json` after confirmation and successful preflight checks. The administrator password is never saved and is requested again on each run; credentials are applied only when installing a new site.
+Settings are saved to `ddev-local-wp-setup-config.json` after you confirm `run` and before preflight checks. If a requirement such as Docker is unavailable, rerun the wizard and continue with the saved answers. The administrator password is never saved and is requested again on each run; credentials are applied only when installing a new site.
 
 When a saved configuration exists, choose to continue with it or start from scratch. Continuing validates known values and prompts for missing or invalid answers. Starting from scratch saves a numbered `.bak` copy when installation begins.
 
