@@ -1,6 +1,6 @@
 /**
- * Bootstrap Templates
- * @file Render initial WordPress bootstrap files and escaped PHP literals.
+ * WordPress Templates
+ * @file Render the WordPress entry point, WP-CLI configuration, and escaped PHP literals.
  */
 
 import { stringify } from "yaml";
