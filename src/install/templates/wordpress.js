@@ -4,16 +4,7 @@
  */
 
 import { stringify } from "yaml";
-
-/**
- * Encode a value as a single-quoted PHP string literal.
- *
- * @param {*} value Value to stringify for PHP source.
- * @returns {string} Escaped PHP string literal including quote delimiters.
- */
-export function phpString(value) {
-  return `'${String(value).replaceAll("\\", "\\\\").replaceAll("'", "\\'")}'`;
-}
+import { phpString } from "./helpers.js";
 
 /**
  * Render the root bootstrap that loads WordPress from its configured directory.
