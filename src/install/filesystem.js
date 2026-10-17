@@ -6,7 +6,7 @@
 import path from "node:path";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { assertProjectPath } from "../system/paths.js";
-import { renderIndex, renderWpCli } from "./templates/bootstrap.js";
+import { renderIndex, renderWpCli } from "./templates/wordpress-bootstrap.js";
 import { rayDockerfile, rayIni, renderRay } from "./templates/ray.js";
 
 /**

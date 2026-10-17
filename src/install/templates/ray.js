@@ -3,7 +3,7 @@
  * @file Render DDEV configuration for the Spatie Ray development tool.
  */
 
-import { phpString } from "./bootstrap.js";
+import { phpString } from "./wordpress-bootstrap.js";
 
 export const rayDockerfile =
   "# Install Global Ray\nENV COMPOSER_HOME=/usr/local/composer/\nRUN composer global require spatie/global-ray\n";
