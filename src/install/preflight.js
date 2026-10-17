@@ -10,8 +10,8 @@ import { assertProjectPath, projectRelativePath } from "../system/paths.js";
 import { configFilename } from "../config/store.js";
 import { projectDirectories, projectFiles, readOptionalFile } from "./filesystem.js";
 import { renderIndex } from "./templates/bootstrap.js";
-import { updateDdevConfig } from "./ddev.js";
-import { readComposer } from "./composer.js";
+import { updateDdevConfig } from "./integrations/ddev.js";
+import { readComposer } from "./integrations/composer.js";
 
 /**
  * Inspect project paths and existing bootstrap files without changing them.

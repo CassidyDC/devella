@@ -10,7 +10,7 @@ import path from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { parse } from "yaml";
-import { setupDdev, updateDdevConfig, wordpressConstants } from "../../src/install/ddev.js";
+import { setupDdev, updateDdevConfig, wordpressConstants } from "../../src/install/integrations/ddev.js";
 import { normalizeSettings } from "../../src/config/normalize.js";
 import { savedSettings, commandRunner, recordingReporter, temporaryProject } from "../fixtures/project.js";
 

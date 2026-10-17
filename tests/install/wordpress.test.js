@@ -5,7 +5,7 @@
 
 import assert from "node:assert/strict";
 import test from "node:test";
-import { setupWordPress } from "../../src/install/wordpress.js";
+import { setupWordPress } from "../../src/install/integrations/wordpress.js";
 import { normalizeSettings } from "../../src/config/normalize.js";
 import { savedSettings, commandRunner, recordingReporter } from "../fixtures/project.js";
 import { wordpressSimulation } from "../fixtures/wordpress.js";

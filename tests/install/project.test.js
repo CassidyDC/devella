@@ -10,7 +10,7 @@ import { mkdir, readFile, readdir, symlink, writeFile } from "node:fs/promises";
 import { normalizeSettings } from "../../src/config/normalize.js";
 import { preflight } from "../../src/install/preflight.js";
 import { prepareFilesystem } from "../../src/install/filesystem.js";
-import { prepareComposer } from "../../src/install/composer.js";
+import { prepareComposer } from "../../src/install/integrations/composer.js";
 import { renderIndex, renderWpCli } from "../../src/install/templates/bootstrap.js";
 import { renderRay } from "../../src/install/templates/ray.js";
 import { assertProjectPath, projectRelativePath } from "../../src/system/paths.js";

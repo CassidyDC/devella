@@ -4,9 +4,9 @@
  */
 
 import { writeFile } from "node:fs/promises";
-import { assertProjectPath } from "../system/paths.js";
-import { readOptionalFile } from "./filesystem.js";
-import { renderComposer } from "./templates/composer.js";
+import { assertProjectPath } from "../../system/paths.js";
+import { readOptionalFile } from "../filesystem.js";
+import { renderComposer } from "../templates/composer.js";
 
 /**
  * Parse Composer JSON and validate the object fields managed by the installer.
@@ -53,7 +53,7 @@ export function readComposer(text) {
 /**
  * Merge required WordPress Composer settings and install project dependencies.
  *
- * @param {import("./run.js").InstallContext} context Project root, normalized settings, runner, and reporter.
+ * @param {import("../run.js").InstallContext} context Project root, normalized settings, runner, and reporter.
  * @returns {Promise<void>} Resolves when Composer has installed WordPress dependencies.
  * @throws {Error} If the manifest is invalid or Composer exits unsuccessfully.
  */

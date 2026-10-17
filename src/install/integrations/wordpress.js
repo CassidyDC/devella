@@ -7,7 +7,7 @@
  * Configure WordPress options, clean fresh-install defaults, and install selected tools.
  * Destructive content cleanup is limited to a new WordPress installation.
  *
- * @param {import("./run.js").InstallContext} context Project root, settings, process runner, and reporter.
+ * @param {import("../run.js").InstallContext} context Project root, settings, process runner, and reporter.
  * @returns {Promise<{freshInstall: boolean}>} Whether WordPress was installed during this run.
  * @throws {Error} If WP-CLI, the database, or a required installation step fails.
  */
@@ -17,7 +17,7 @@ export async function setupWordPress({ rootDir, settings, runCommand, reporter }
    *
    * @param {string[]} args WP-CLI arguments following `wp`.
    * @param {object} [options={}] Process options such as output routing.
-   * @returns {Promise<import("../system/process.js").CommandResult>} Captured subprocess result.
+   * @returns {Promise<import("../../system/process.js").CommandResult>} Captured subprocess result.
    */
   const wp = (args, options = {}) =>
     runCommand("ddev", ["wp", ...args], { cwd: rootDir, output: "capture", ...options });
@@ -37,7 +37,7 @@ export async function setupWordPress({ rootDir, settings, runCommand, reporter }
    * Probe WP-CLI while preserving nonzero status and diagnostic output.
    *
    * @param {string[]} args WP-CLI arguments following `wp`.
-   * @returns {Promise<import("../system/process.js").CommandResult>} Captured result, including nonzero status.
+   * @returns {Promise<import("../../system/process.js").CommandResult>} Captured result, including nonzero status.
    */
   const probe = (args) =>
     runCommand(

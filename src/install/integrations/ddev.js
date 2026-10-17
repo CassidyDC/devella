@@ -5,9 +5,9 @@
 
 import { readFile, writeFile } from "node:fs/promises";
 import { isMap, isSeq, parseDocument } from "yaml";
-import { assertProjectPath } from "../system/paths.js";
-import { readOptionalFile } from "./filesystem.js";
-import { phpString } from "./templates/bootstrap.js";
+import { assertProjectPath } from "../../system/paths.js";
+import { readOptionalFile } from "../filesystem.js";
+import { phpString } from "../templates/bootstrap.js";
 
 /**
  * Quote a value for a POSIX shell while preserving literal shell metacharacters.
@@ -21,7 +21,7 @@ const shellQuote = (value) =>
 /**
  * Build the PHP constants managed by the DDEV post-start hook.
  *
- * @param {{wordpress: import("../config/normalize.js").InstallSettings["wordpress"]}} settings Normalized WordPress settings.
+ * @param {{wordpress: import("../../config/normalize.js").InstallSettings["wordpress"]}} settings Normalized WordPress settings.
  * @returns {Record<string, string>} Constant names mapped to WP-CLI values.
  */
 export function wordpressConstants({ wordpress: wp }) {
@@ -41,7 +41,7 @@ export function wordpressConstants({ wordpress: wp }) {
  * Update installer-owned DDEV YAML while preserving unrelated nodes, hooks, and comments.
  *
  * @param {string} content Existing `.ddev/config.yaml` contents.
- * @param {import("../config/normalize.js").InstallSettings} settings Normalized installation settings.
+ * @param {import("../../config/normalize.js").InstallSettings} settings Normalized installation settings.
  * @returns {string} Updated YAML text with managed WordPress hooks and paths.
  * @throws {Error} If the YAML is invalid or contains incompatible project settings.
  */
@@ -122,7 +122,7 @@ export function updateDdevConfig(content, settings) {
 /**
  * Create or update DDEV configuration and start the project.
  *
- * @param {import("./run.js").InstallContext} context Project root, settings, runner, reporter, and preflight facts.
+ * @param {import("../run.js").InstallContext} context Project root, settings, runner, reporter, and preflight facts.
  * @returns {Promise<void>} Resolves when DDEV has configured and started the project.
  * @throws {Error} If DDEV configuration or project startup fails.
  */

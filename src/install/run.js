@@ -9,9 +9,9 @@ import { saveConfig } from "../config/store.js";
 import { runCommand as execute } from "../system/process.js";
 import { preflight } from "./preflight.js";
 import { prepareFilesystem } from "./filesystem.js";
-import { prepareComposer } from "./composer.js";
-import { setupDdev } from "./ddev.js";
-import { setupWordPress } from "./wordpress.js";
+import { prepareComposer } from "./integrations/composer.js";
+import { setupDdev } from "./integrations/ddev.js";
+import { setupWordPress } from "./integrations/wordpress.js";
 
 /**
  * @typedef {object} InstallContext
