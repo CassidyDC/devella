@@ -7,7 +7,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { isMap, isSeq, parseDocument } from "yaml";
 import { assertProjectPath } from "../../system/paths.js";
 import { readOptionalFile } from "../filesystem.js";
-import { phpString } from "../templates/helpers.js";
+import { phpString } from "../helpers.js";
 
 /**
  * Quote a value for a POSIX shell while preserving literal shell metacharacters.

@@ -4,7 +4,7 @@
  */
 
 import { stringify } from "yaml";
-import { phpString } from "./helpers.js";
+import { phpString } from "../helpers.js";
 
 /**
  * Render the root bootstrap that loads WordPress from its configured directory.
