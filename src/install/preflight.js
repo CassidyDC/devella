@@ -9,7 +9,7 @@ import { parseDocument, isMap } from "yaml";
 import { assertProjectPath, projectRelativePath } from "../system/paths.js";
 import { configFilename } from "../config/store.js";
 import { projectDirectories, projectFiles, readOptionalFile } from "./filesystem.js";
-import { renderIndex } from "./templates/wordpress-bootstrap.js";
+import { renderIndex } from "./templates/wordpress.js";
 import { updateDdevConfig } from "./integrations/ddev.js";
 import { readComposer } from "./integrations/composer.js";
 

@@ -39,7 +39,7 @@ try {
     "bin/ddev-wp.js",
     "src/cli/run.js",
     "src/install/run.js",
-    "src/install/templates/wordpress-bootstrap.js",
+    "src/install/templates/wordpress.js",
   ])
     assert.ok(published.has(filename), `Missing published file: ${filename}`);
 
