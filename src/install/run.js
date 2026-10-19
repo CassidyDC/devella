@@ -44,6 +44,8 @@ export async function runInstaller({ rootDir, reporter, prompt, runCommand = exe
   await setupDdev(context);
   const outcome = await setupWordPress(context);
 
+  reporter.success("WordPress setup complete.");
+  reporter.info("");
   reporter.success("The ddev-local-wp-setup installation process is all finished!");
   reporter.info("");
 

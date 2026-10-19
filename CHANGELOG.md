@@ -19,7 +19,7 @@
 
 ### Fixed
 
-- Restore the original ddev-local-wp-setup installation completion message.
+- Restore the original ddev-local-wp-setup installation completion message after the WordPress setup completion message, separated by a blank line.
 - Add a blank line before and after the WordPress constant success messages in the Configuring DDEV output.
 - Add a blank line after the final WordPress setup completion message.
 - Restore the original startup directory note, capitalize wizard section headers, and show prompt hints.
