@@ -91,12 +91,25 @@ export function updateDdevConfig(content, settings) {
 
   postStart.items = postStart.items.filter((node) => {
     const command = isMap(node) ? node.get("exec") : null;
-    const key = typeof command === "string" ? command.match(/^wp (?:--color )?config set ([A-Z_]+)\s/)?.[1] : null;
+    const key =
+      typeof command === "string"
+        ? command.match(/^(?:printf '\\n' && )?wp (?:--color )?config set ([A-Z_]+)\s/)?.[1]
+        : null;
+
     return !key || !Object.hasOwn(constants, key);
   });
 
-  for (const [key, value] of Object.entries(constants))
-    postStart.add(document.createNode({ exec: `wp --color config set ${key} ${shellQuote(value)} --raw` }));
+  const entries = Object.entries(constants);
+
+  for (const [index, [key, value]] of entries.entries()) {
+    let command = `wp --color config set ${key} ${shellQuote(value)} --raw`;
+
+    if (index === 0) command = `printf '\\n' && ${command}`;
+
+    if (index === entries.length - 1) command += " && printf '\\n'";
+
+    postStart.add(document.createNode({ exec: command }));
+  }
 
   let uploads = document.get("upload_dirs", true);
 

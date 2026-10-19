@@ -19,6 +19,8 @@
 
 ### Fixed
 
+- Add a blank line before and after the WordPress constant success messages in the Configuring DDEV output.
+- Add a blank line after the final WordPress setup completion message.
 - Restore the original startup directory note, capitalize wizard section headers, and show prompt hints.
 - Save settings before preflight so answers survive missing Docker or other requirements.
 - Add conditional PHP namespace/function-prefix choices and create the requested documentation TODO file.
