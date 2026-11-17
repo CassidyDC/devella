@@ -105,7 +105,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
      * @returns {void}
      */
     help(pkg) {
-      line(`${pkg.description}\n\nUsage:\n  ddev-wp <command> [flags]\n\nCommands:`);
+      line(`${pkg.description}\n\nUsage:\n  devella <command> [flags]\n\nCommands:`);
 
       for (const [name, { alias, description }] of Object.entries(commands))
         line(`  ${alias}, ${name}  ${description}`);
@@ -115,7 +115,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
       for (const [name, { alias, description }] of Object.entries(flags))
         line(`  -${alias}, --${name}  ${description}`);
 
-      line("\nExamples:\n  ddev-wp install\n  ddev-wp --version\n  npm exec --package=devella -- ddev-wp install\n");
+      line("\nExamples:\n  devella install\n  devella --version\n  npm exec --package=devella -- devella install\n");
     },
 
     /**

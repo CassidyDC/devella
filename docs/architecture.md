@@ -1,12 +1,12 @@
 # Architecture
 
-The project uses native JavaScript ESM with no compilation step. The package exposes the `ddev-wp` executable. Its import-safe main module supports internal testing; its functions are not a versioned public library API.
+The project uses native JavaScript ESM with no compilation step. The package exposes the `devella` executable. Its import-safe main module supports internal testing; its functions are not a versioned public library API.
 
 ## Module ownership
 
 | Location                   | Responsibility                                                                                                            |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `bin/ddev-wp.js`           | Read process arguments and the project directory, await the CLI, and set the process exit code.                           |
+| `bin/devella.js`           | Read process arguments and the project directory, await the CLI, and set the process exit code.                           |
 | `src/cli`                  | Parse aliases, choose an action, drive the wizard, and render terminal output. Command metadata does not import handlers. |
 | `src/config`               | Define fields, validate answers and saved values, normalize execution settings, and persist configuration.                |
 | `src/install`              | Run the ordered installation stages and implement project, Composer, DDEV, and WordPress behavior.                        |

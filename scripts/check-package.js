@@ -13,7 +13,7 @@ import { promisify } from "node:util";
 
 const exec = promisify(execFile);
 const root = fileURLToPath(new URL("../", import.meta.url));
-const temporary = await mkdtemp(path.join(tmpdir(), "ddev-wp package-"));
+const temporary = await mkdtemp(path.join(tmpdir(), "devella package-"));
 const npmCli = process.env.npm_execpath;
 
 assert.ok(npmCli, "Run this check with npm run test:package.");
@@ -36,7 +36,7 @@ try {
 
   for (const filename of [
     "package.json",
-    "bin/ddev-wp.js",
+    "bin/devella.js",
     "src/cli/run.js",
     "src/install/run.js",
     "src/install/templates/wordpress.js",
@@ -49,7 +49,7 @@ try {
   await mkdir(consumer);
   await writeFile(
     path.join(consumer, "package.json"),
-    JSON.stringify({ name: "ddev-wp-package-check", private: true }),
+    JSON.stringify({ name: "devella-package-check", private: true }),
   );
 
   await npm(
@@ -67,13 +67,13 @@ try {
 
   const installed = path.join(consumer, "node_modules", "devella");
   const pkg = JSON.parse(await readFile(path.join(installed, "package.json"), "utf8"));
-  const bin = path.join(consumer, "node_modules", ".bin", "ddev-wp");
+  const bin = path.join(consumer, "node_modules", ".bin", "devella");
   const version = await exec(bin, ["--version"], { cwd: consumer });
 
   assert.equal(version.stdout, `v${pkg.version}\n`);
   const help = await exec(bin, ["-h", "-nh", "-nc"], { cwd: consumer });
 
-  assert.match(help.stdout, /ddev-wp <command>/);
+  assert.match(help.stdout, /devella <command>/);
   assert.ok(!help.stdout.includes("┌"));
   const entry = pathToFileURL(path.join(installed, pkg.main)).href;
 

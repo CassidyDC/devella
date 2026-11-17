@@ -36,6 +36,6 @@ This document summarizes the user visible changes introduced by the v3 refactor.
 
 ## CLI and package structure
 
-- The executable is `ddev-wp install`, implemented as a native JavaScript ESM package with separate CLI, configuration, installation, template, and system modules.
+- The executable is `devella install`, implemented as a native JavaScript ESM package with separate CLI, configuration, installation, template, and system modules.
 - Help, version, debug, and installation actions are parsed explicitly. Invalid arguments and failed installation steps return nonzero exit codes; Ctrl+C returns status 130.
 - Subprocesses run with explicit working directories and argument arrays instead of shell-built commands. Informational commands do not load the installer.

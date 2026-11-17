@@ -61,7 +61,7 @@ test("capture, stream, and silent modes share exit handling", async () => {
 
 test("missing binaries and signals are errors even for allowed unsuccessful probes", async () => {
   await assert.rejects(
-    runCommand("ddev-wp-nonexistent-executable", [], { cwd: process.cwd(), allowFailure: true }),
+    runCommand("devella-nonexistent-executable", [], { cwd: process.cwd(), allowFailure: true }),
     /not installed/,
   );
 

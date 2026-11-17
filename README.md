@@ -13,15 +13,15 @@ An interactive JavaScript CLI for creating a local WordPress development site wi
 Run the CLI from the directory where you want the project installed:
 
 ```sh
-npm exec --package=devella -- ddev-wp install
+npm exec --package=devella -- devella install
 ```
 
-Alternatively, install the package globally and run `ddev-wp install`.
+Alternatively, install the package globally and run `devella install`.
 
 To use this checkout before publishing, install its dependencies with `npm ci`, then run its executable from your project's directory:
 
 ```sh
-node /absolute/path/to/devella/bin/ddev-wp.js install
+node /absolute/path/to/devella/bin/devella.js install
 ```
 
 The CLI checks that a Docker provider is running before showing setup questions. If it is unavailable, start the provider and press Enter to retry, or type `exit` to quit. The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. Type `run` at the final confirmation to check requirements and begin installation. Type `exit` at either exit prompt to cancel without changing the project.
@@ -50,9 +50,9 @@ Existing generated files are preserved. Incompatible core paths, custom bootstra
 ## Commands and development
 
 ```sh
-ddev-wp --help
-ddev-wp --version
-ddev-wp install --no-header --no-clear
+devella --help
+devella --version
+devella install --no-header --no-clear
 ```
 
 From this checkout:

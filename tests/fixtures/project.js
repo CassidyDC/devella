@@ -14,7 +14,7 @@ import path from "node:path";
  * @returns {Promise<string>} Absolute path to the temporary project directory.
  */
 export async function temporaryProject(t) {
-  const rootDir = await mkdtemp(path.join(tmpdir(), "ddev-wp tests-"));
+  const rootDir = await mkdtemp(path.join(tmpdir(), "devella tests-"));
   t.after(() => rm(rootDir, { recursive: true, force: true }));
   return rootDir;
 }

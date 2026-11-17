@@ -89,7 +89,7 @@ export async function saveConfig(rootDir, settings, { restart = false } = {}) {
     await copyFile(filename, backup, constants.COPYFILE_EXCL);
   }
 
-  const temporary = await assertProjectPath(rootDir, `.ddev-wp-config-${randomUUID()}.tmp`);
+  const temporary = await assertProjectPath(rootDir, `.devella-config-${randomUUID()}.tmp`);
 
   try {
     await writeFile(temporary, JSON.stringify(config, null, 2) + "\n", { mode: 0o600, flag: "wx" });

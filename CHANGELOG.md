@@ -11,7 +11,7 @@
 
 ### Changed
 
-- Renamed the project from DDEV Local WP Setup to Devella, including the npm package, Composer package, repository links, and saved `devella-config.json` filename.
+- Renamed the project from DDEV Local WP Setup to Devella, including the npm package, the `ddev-wp` executable (now `devella`), Composer package, repository links, and saved `devella-config.json` filename.
 - Reorganized the CLI into explicit command, configuration, installation, template, and system modules using native JavaScript ESM.
 - Replaced shared mutable installation settings and circular helper imports with explicit inputs and a shared subprocess runner.
 - Hide unfinished Git, toolset, and VS Code options while preserving their saved configuration keys.

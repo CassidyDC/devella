@@ -58,7 +58,7 @@
    2. Enter a password:
    3. Enter an email address:
 3. Configure your setup:
-   - Do you want to customize other project settings? (y/n) (If "n", your project will be created with the default ddev-wp configurations.)
+   - Do you want to customize other project settings? (y/n) (If "n", your project will be created with the default devella configurations.)
      1. Choose your themes:
         1. Install the default WordPress Theme? (y/n) (Recommended as a fallback theme.)
         2. Install the CassidyDC WP Starter Block Theme? (y/n)

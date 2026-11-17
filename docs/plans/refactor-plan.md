@@ -12,7 +12,7 @@ The refactor would also fix confirmed defects: ignored header flags, successful 
 
 ```text
 bin/
-  ddev-wp.js                  # Executable wrapper and final error handling
+  devella.js                  # Executable wrapper and final error handling
 
 src/
   cli/
@@ -106,7 +106,7 @@ Remove the redundant `js/modules` nesting and broad `helpers`, `getters`, and `c
 
 ## Assumptions
 
-- Preserve the package name, `ddev-wp` executable, existing aliases, and saved configuration format.
+- Preserve the package name, `devella` executable, existing aliases, and saved configuration format.
 - Retain JavaScript with JSDoc at key boundaries; introduce no build step or framework.
 - Defer unfinished features and hide their prompts, as selected.
 - Support safe reruns without adding resume checkpoints, a new public library API, or automatic rollback.

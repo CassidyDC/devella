@@ -9,7 +9,7 @@
     "url": "https://cassidydc.com"
   },
   "bin": {
-    "ddev-wp": "./bin/ddev-wp.js"
+    "devella": "./bin/devella.js"
   },
   "files": [
     "bin",
