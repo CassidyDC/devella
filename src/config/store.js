@@ -9,7 +9,7 @@ import { randomUUID } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { assertProjectPath } from "../system/paths.js";
 
-export const configFilename = "ddev-local-wp-setup-config.json";
+export const configFilename = "devella-config.json";
 
 /**
  * Read the saved wizard configuration, returning null when it does not exist.
@@ -81,13 +81,10 @@ export async function saveConfig(rootDir, settings, { restart = false } = {}) {
 
   if (previous !== null && restart) {
     const matches = (await readdir(rootDir))
-      .map((name) => name.match(/^ddev-local-wp-setup-config(?:_(\d+))?\.bak$/))
+      .map((name) => name.match(/^devella-config(?:_(\d+))?\.bak$/))
       .filter(Boolean);
     const number = Math.max(-1, ...matches.map((match) => Number(match[1] ?? 0))) + 1;
-    const backup = await assertProjectPath(
-      rootDir,
-      `ddev-local-wp-setup-config_${String(number).padStart(3, "0")}.bak`,
-    );
+    const backup = await assertProjectPath(rootDir, `devella-config_${String(number).padStart(3, "0")}.bak`);
 
     await copyFile(filename, backup, constants.COPYFILE_EXCL);
   }

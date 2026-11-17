@@ -31,13 +31,13 @@ Preflight performs no project writes. A failed later stage stops subsequent stag
 
 ## Settings compatibility
 
-The saved filename remains `ddev-local-wp-setup-config.json`, with the existing `ddev`, `wordpress`, `plugin`, `theme`, and `devConfig` sections. Missing sections are collected normally; sections present with invalid shapes, or invalid JSON, must be corrected or replaced by choosing to start from scratch.
+The saved filename remains `devella-config.json`, with the existing `ddev`, `wordpress`, `plugin`, `theme`, and `devConfig` sections. Missing sections are collected normally; sections present with invalid shapes, or invalid JSON, must be corrected or replaced by choosing to start from scratch.
 
 Unknown and deferred keys are preserved when continuing, but only enabled, known fields enter execution settings. Disabled custom theme/plugin fields and debug paths do not trigger filesystem creation. Disabling logging sets `WP_DEBUG_LOG` to false.
 
 Saved core and log paths retain their leading-slash convention, such as `/wordpress` and `/wp-content/logs/wp-errors.log`. These are relative to the project, not your computer's filesystem root. Traversal segments and symlinks leading outside the project are rejected.
 
-Restart backups use names such as `ddev-local-wp-setup-config_000.bak`, incrementing beyond existing numbered backups. A restart resets saved choices; the original configuration, including unknown keys, remains available in its backup.
+Restart backups use names such as `devella-config_000.bak`, incrementing beyond existing numbered backups. A restart resets saved choices; the original configuration, including unknown keys, remains available in its backup.
 
 ## Files and existing projects
 
@@ -54,7 +54,7 @@ wp-content/
   docs/reference/            # Optional
 composer.json
 composer.lock
-ddev-local-wp-setup-config.json
+devella-config.json
 index.php
 wp-cli.yml
 wp-config.php                # Managed by DDEV

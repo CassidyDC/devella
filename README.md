@@ -1,4 +1,4 @@
-# DDEV Local WP Setup
+# Devella
 
 An interactive JavaScript CLI for creating a local WordPress development site with DDEV. WordPress core lives in its own directory, while themes, plugins, and uploads stay in the project's `wp-content` directory.
 
@@ -13,7 +13,7 @@ An interactive JavaScript CLI for creating a local WordPress development site wi
 Run the CLI from the directory where you want the project installed:
 
 ```sh
-npm exec --package=ddev-local-wp-setup -- ddev-wp install
+npm exec --package=devella -- ddev-wp install
 ```
 
 Alternatively, install the package globally and run `ddev-wp install`.
@@ -21,7 +21,7 @@ Alternatively, install the package globally and run `ddev-wp install`.
 To use this checkout before publishing, install its dependencies with `npm ci`, then run its executable from your project's directory:
 
 ```sh
-node /absolute/path/to/ddev-local-wp-setup/bin/ddev-wp.js install
+node /absolute/path/to/devella/bin/ddev-wp.js install
 ```
 
 The CLI checks that a Docker provider is running before showing setup questions. If it is unavailable, start the provider and press Enter to retry, or type `exit` to quit. The wizard collects DDEV, WordPress, theme, plugin, and documentation settings. Type `run` at the final confirmation to check requirements and begin installation. Type `exit` at either exit prompt to cancel without changing the project.
@@ -39,7 +39,7 @@ Git initialization, development toolsets, starter theme/plugin files, and VS Cod
 
 ## Saved settings and reruns
 
-Settings are saved to `ddev-local-wp-setup-config.json` after you confirm `run` and before preflight checks. If a requirement such as Docker is unavailable, rerun the wizard and continue with the saved answers. The administrator password is never saved and is requested again on each run; credentials are applied only when installing a new site.
+Settings are saved to `devella-config.json` after you confirm `run` and before preflight checks. If a requirement such as Docker is unavailable, rerun the wizard and continue with the saved answers. The administrator password is never saved and is requested again on each run; credentials are applied only when installing a new site.
 
 When a saved configuration exists, choose to continue with it or start from scratch. Continuing validates known values and prompts for missing or invalid answers. Starting from scratch saves a numbered `.bak` copy when installation begins.
 
@@ -70,4 +70,4 @@ Tests use temporary projects and simulated external commands, so they do not req
 
 See the [CLI reference](docs/cli.md), [refactor changes](docs/changes.md), [architecture](docs/architecture.md), and [refactor plan](docs/plans/refactor-plan.md). Historical shell scripts and early CLI design notes are kept in [the archive](docs/archive/README.md).
 
-Report issues in the [GitHub repository](https://github.com/CassidyDC/ddev-local-wp-setup/issues).
+Report issues in the [GitHub repository](https://github.com/CassidyDC/devella/issues).

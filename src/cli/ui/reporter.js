@@ -115,9 +115,7 @@ export function createReporter({ stdout = process.stdout, stderr = process.stder
       for (const [name, { alias, description }] of Object.entries(flags))
         line(`  -${alias}, --${name}  ${description}`);
 
-      line(
-        "\nExamples:\n  ddev-wp install\n  ddev-wp --version\n  npm exec --package=ddev-local-wp-setup -- ddev-wp install\n",
-      );
+      line("\nExamples:\n  ddev-wp install\n  ddev-wp --version\n  npm exec --package=devella -- ddev-wp install\n");
     },
 
     /**

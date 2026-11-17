@@ -138,8 +138,8 @@ test("a preflight failure saves answers without the password and stops the full 
 
   assert.equal(saved.wordpress.adminUsername, settings.wordpress.adminUsername);
   assert.equal(saved.wordpress.adminPassword, undefined);
-  assert.equal(await readFile(path.join(rootDir, "ddev-local-wp-setup-config_000.bak"), "utf8"), "broken JSON");
-  assert.deepEqual((await readdir(rootDir)).sort(), [configFilename, "ddev-local-wp-setup-config_000.bak"]);
+  assert.equal(await readFile(path.join(rootDir, "devella-config_000.bak"), "utf8"), "broken JSON");
+  assert.deepEqual((await readdir(rootDir)).sort(), [configFilename, "devella-config_000.bak"]);
   assert.equal(calls.at(-1).command, "docker");
   assert.deepEqual(calls.at(-1).args, ["info"]);
 });

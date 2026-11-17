@@ -26,9 +26,9 @@ test("saved JSON retains unknown and deferred keys without administrator passwor
 test("restart preserves the old config with monotonically numbered backups", async (t) => {
   const root = await temporaryProject(t);
   await writeFile(path.join(root, configFilename), "broken JSON");
-  await writeFile(path.join(root, "ddev-local-wp-setup-config_009.bak"), "old backup");
+  await writeFile(path.join(root, "devella-config_009.bak"), "old backup");
   await saveConfig(root, savedSettings(), { restart: true });
-  assert.equal(await readFile(path.join(root, "ddev-local-wp-setup-config_010.bak"), "utf8"), "broken JSON");
+  assert.equal(await readFile(path.join(root, "devella-config_010.bak"), "utf8"), "broken JSON");
   assert.equal(parseConfig(await readConfigText(root)).ddev.projectName, "test-site");
 });
 

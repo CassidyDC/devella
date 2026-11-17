@@ -65,7 +65,7 @@ try {
     consumer,
   );
 
-  const installed = path.join(consumer, "node_modules", "ddev-local-wp-setup");
+  const installed = path.join(consumer, "node_modules", "devella");
   const pkg = JSON.parse(await readFile(path.join(installed, "package.json"), "utf8"));
   const bin = path.join(consumer, "node_modules", ".bin", "ddev-wp");
   const version = await exec(bin, ["--version"], { cwd: consumer });

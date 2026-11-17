@@ -1,6 +1,6 @@
 {
-  "name": "ddev-local-wp-setup",
-  "displayName": "DDEV Local WP Setup",
+  "name": "devella",
+  "displayName": "Devella",
   "version": "1.0.0",
   "description": "Interactive CLI for setting up a local WordPress development server with DDEV",
   "author": {
@@ -20,13 +20,13 @@
   "engines": {
     "node": "^22.13.0 || >=24.0.0"
   },
-  "homepage": "https://github.com/CassidyDC/ddev-local-wp-setup/blob/main/README.md",
+  "homepage": "https://github.com/CassidyDC/devella/blob/main/README.md",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CassidyDC/ddev-local-wp-setup"
+    "url": "https://github.com/CassidyDC/devella"
   },
   "bugs": {
-    "url": "https://github.com/cassidydc/ddev-local-wp-setup/issues"
+    "url": "https://github.com/cassidydc/devella/issues"
   },
   "license": "MIT",
   "keywords": [

@@ -1,4 +1,4 @@
-# DDEV Local WP Setup - Filesystem
+# Devella - Filesystem
 
 - root
   - /.ddev
@@ -40,7 +40,7 @@
       - `CHANGELOG.md`
       - `README.md`
 - `composer.json`
-- `ddev-local-wp-setup-config.json`
+- `devella-config.json`
 - `index.php`
 - `ray.php`
 - `wp-cli.yml`

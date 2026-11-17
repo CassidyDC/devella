@@ -7,6 +7,6 @@
 docs/TODO.md
 
 # Ignore temp files
-ddev-local-wp-setup-config*
+devella-config*
 *.ddev.site
 

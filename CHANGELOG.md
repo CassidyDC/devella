@@ -1,4 +1,4 @@
-# Changelog for `ddev-local-wp-setup`
+# Changelog for `devella`
 
 ## [Unreleased]
 
@@ -11,6 +11,7 @@
 
 ### Changed
 
+- Renamed the project from DDEV Local WP Setup to Devella, including the npm package, Composer package, repository links, and saved `devella-config.json` filename.
 - Reorganized the CLI into explicit command, configuration, installation, template, and system modules using native JavaScript ESM.
 - Replaced shared mutable installation settings and circular helper imports with explicit inputs and a shared subprocess runner.
 - Hide unfinished Git, toolset, and VS Code options while preserving their saved configuration keys.
@@ -19,7 +20,7 @@
 
 ### Fixed
 
-- Restore the original ddev-local-wp-setup installation completion message after the WordPress setup completion message, separated by a blank line.
+- Restore the original devella installation completion message after the WordPress setup completion message, separated by a blank line.
 - Add a blank line before and after the WordPress constant success messages in the Configuring DDEV output.
 - Add a blank line after the final WordPress setup completion message.
 - Restore the original startup directory note, capitalize wizard section headers, and show prompt hints.

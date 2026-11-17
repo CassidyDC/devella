@@ -2,7 +2,7 @@
 
 <!-- CLEAN UP AND REMOVE -->
 
-1. Download `cli-ddev-local-wp-setup` node module and `cli-toolset-dev-wp` node module dependency with `npm i -D cli-ddev-local-wp-setup`
+1. Download `cli-devella` node module and `cli-toolset-dev-wp` node module dependency with `npm i -D cli-devella`
 2. Run prompts to set project details (see [prompts](#prompts)).
 3. Run `ddev config --project-type=wordpress --project-name=$PROJECT_NAME_SLUG`
    - Creates `.ddev` directory, `wp-config-ddev.php`, and `wp-config.php`.

@@ -46,7 +46,7 @@ export async function runInstaller({ rootDir, reporter, prompt, runCommand = exe
 
   reporter.success("WordPress setup complete.");
   reporter.info("");
-  reporter.success("The ddev-local-wp-setup installation process is all finished!");
+  reporter.success("The devella installation process is all finished!");
   reporter.info("");
 
   return outcome;

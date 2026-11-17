@@ -13,7 +13,7 @@ export function renderComposer(coreDir) {
   return (
     JSON.stringify(
       {
-        name: "cassidydc/ddev-local-wp-setup",
+        name: "cassidydc/devella",
         description: "Local WordPress development server with DDEV.",
         license: "MIT",
         require: { php: ">=8.4" },
